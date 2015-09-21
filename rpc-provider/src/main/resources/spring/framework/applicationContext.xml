@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.rpc.*" />
+
+	<!-- 引用properties -->
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:properties/datasource.properties</value>
+				<value>classpath*:properties/dubbo.properties</value>
+				<value>classpath*:properties/ray.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="configProperties" />
+	</bean>
+
+	<!-- 配置从上下文中获取Bean的工具类 -->
+	<!-- <bean id="applicationContextUtil" class="com.rpc.util.ApplicationContextUtil" /> -->
+
+	<!-- 框架配置文件 -->
+	<import resource="classpath*:spring/framework/applicationContext-dao-datasource.xml" />
+	<import resource="classpath*:spring/framework/applicationContext-dao-transaction.xml" />
+	<import resource="classpath*:spring/framework/applicationContext-mybatis.xml" />
+	<import resource="classpath*:spring/framework/applicationContext-dubbo.xml" />
+	<import resource="classpath*:spring/framework/applicationContext-key.xml" />
+
+	<import resource="classpath*:spring/service/applicationContext-auth.xml" />
+</beans>    
