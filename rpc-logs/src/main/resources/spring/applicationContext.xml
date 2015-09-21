@@ -5,7 +5,6 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-	<mvc:annotation-driven />
 	<context:annotation-config />
 
 	<context:component-scan base-package="cn.rpc">
@@ -14,12 +13,11 @@
 	</context:component-scan>
 
 	<mongo:mongo host="localhost" port="27017" />
+
 	<mongo:db-factory dbname="logs" mongo-ref="mongo" />
+
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
-
-
-
 
 </beans>

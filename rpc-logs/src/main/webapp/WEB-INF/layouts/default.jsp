@@ -1,46 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>springmvc-<sitemesh:write property='title' /></title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<c:set var="version_css" value="20131213" scope="application"></c:set>
-<c:set var="version_js" value="20131213" scope="application"></c:set>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-
-<link href="${ctx}/static/bootstrap/css/bootstrap.min.css?${version_css}" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/bootstrap/css/bootstrap-theme.min.css?${version_css}" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/jquery/plugins/css/jquery.scrollToTop.css?${version_css}" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/css/default.css?${version_css}" type="text/css" rel="stylesheet" />
-
-<script src="${ctx}/static/jquery/jquery-1.9.1.js?${version_js}" type="text/javascript"></script>
-<script src="${ctx}/static/bootstrap/js/bootstrap.min.js?${version_js}" type="text/javascript"></script>
-<script src="${ctx}/static/js/common.js?${version_js}" type="text/javascript"></script>
-<script src="${ctx}/static/jquery/plugins/js/jquery.scrollToTop.js?${version_js}" type="text/javascript"></script>
-<script type="text/javascript">
-  var _ctx = "${pageContext.request.contextPath}";
-  jQuery(function() {
-    jQuery(window).scrollToTop();
-  });
-</script>
-<!--[if lt IE 9]>
-<script src="${ctx}/static/bootstrap/js/html5shiv.js"></script>
-<script src="${ctx}/static/bootstrap/js/respond.min.js"></script>
-<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="${ctx}/static/images/favicon.ico">
+<title>日志系统-<sitemesh:write property='title' /></title>
+<link href="${ctx}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="${ctx }/static/css/blog.css" rel="stylesheet">
 
 <sitemesh:write property='head' />
 </head>
 <body>
-	<div id="wrap">
-		<%@ include file="/WEB-INF/layouts/header.jsp"%>
+	<div class="blog-masthead">
 		<div class="container">
-			<div id="content">
-				<sitemesh:write property='body' />
-			</div>
+			<nav class="nav blog-nav">
+				<a class="nav-link active" href="${ctx }">首页</a>
+			</nav>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/layouts/footer.jsp"%>
+	<sitemesh:write property='body' />
+	<footer class="blog-footer">
+		<p>Company copyright</p>
+	</footer>
+	<script src="${ctx}/static/jquery/jquery-1.9.1.js"></script>
+	<script src="${ctx}/static/bootstrap/js/bootstrap.js"></script>
+	<script src="${ctx }/static/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
