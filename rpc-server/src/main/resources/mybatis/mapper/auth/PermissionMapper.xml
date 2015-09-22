@@ -46,6 +46,11 @@
 	    ]]>
 	</sql>
 
+	<select id="findAllByFilter" parameterType="java.util.Map" resultMap="permissionMap">
+		<include refid="find_xxx" />
+		<include refid="from_xxx" />
+	</select>
+
 	<select id="findById" parameterType="int" resultMap="permissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
@@ -59,11 +64,11 @@
 		 ]]>
 	</select>
 
-	<select id="findPermissionByKey" parameterType="string" resultMap="permissionMap">
+	<select id="findPermissionByParentId" parameterType="string" resultMap="permissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		 <![CDATA[
-			where menu_code=#{permissionKey}
+			where parent_id=#{parentId}
 		 ]]>
 	</select>
 

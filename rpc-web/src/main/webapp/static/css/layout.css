@@ -1,4 +1,3 @@
-/** 页面布局 **/
 body {
 	padding-top: 70px;
 	padding-bottom: 30px;
@@ -18,10 +17,7 @@ body {
 	min-height: 500px;
 }
 
-/** 页面布局  the end **/
-
-/** 分页 **/
-.pagingFrom>li>a,.pagingFrom>li>span {
+.pagingFrom>li>a, .pagingFrom>li>span {
 	color: #000000;
 }
 
@@ -54,9 +50,7 @@ body {
 	margin: 0 3px;
 }
 
-/** 分页  the end **/
 
-/** ------- CSS------------------- **/
 .col-sm-0 {
 	width: 1%;
 }

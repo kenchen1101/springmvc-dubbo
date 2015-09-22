@@ -66,6 +66,13 @@ public interface AuthService {
     public List<Role> findRoleByUserId(String userId);
 
     /**
+     * 查询所有菜单
+     *
+     * @return permissions 菜单
+     */
+    public List<Permission> getPermissions();
+
+    /**
      * 查询用户所能访问的所有菜单
      *
      * @param userId

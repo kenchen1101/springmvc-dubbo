@@ -30,5 +30,5 @@ public interface PermissionMapper extends BaseMapper<String, Permission> {
      *            菜单KEY
      * @return
      */
-    public Permission findPermissionByKey(String permissionKey);
+    public Permission findPermissionByParentId(String permissionKey);
 }

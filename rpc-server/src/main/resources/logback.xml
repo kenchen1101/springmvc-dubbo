@@ -34,7 +34,7 @@
 		</encoder>
 	</appender>
 
-	<appender name="file—error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>ERROR</level>
 			<onMatch>ACCEPT</onMatch>
@@ -65,7 +65,7 @@
 	<logger name="java.sql.Statement" level="debug" />
 	<logger name="java.sql.PreparedStatement" level="debug" />
 
-	<!-- 日志级别：TRACE < DEBUG < INFO < WARN < ERROR -->
+	<!-- 日志级别：trace < debug < info < warn < error -->
 	<root level="debug">
 		<!-- 输出到控制台 -->
 		<appender-ref ref="stdout" />
@@ -77,7 +77,7 @@
 		<!-- <appender-ref ref="file" /> -->
 
 		<!-- error级别日志单独写入一个文件 -->
-		<!-- <appender-ref ref="file—error" /> -->
+		<!-- <appender-ref ref="error" /> -->
 	</root>
 
 </configuration>

@@ -1,6 +1,8 @@
 package com.rpc.auth.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -93,6 +95,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public List<Permission> getPermissions() {
+        Map<String, Object> param = new HashMap<String, Object>();
+        return permissionMapper.findAllByFilter(param);
+    }
+
+    @Override
     public List<Permission> getPermissionsByUserId(String userId) {
         return permissionMapper.findPermissionByUserId(userId);
     }
@@ -130,7 +138,7 @@ public class AuthServiceImpl implements AuthService {
         if (role == null) {
             throw new BusinessException("## 给角色授权失败， 角色编码错误");
         }
-        Permission permis = permissionMapper.findPermissionByKey(permissionKey);
+        Permission permis = permissionMapper.findPermissionByParentId(permissionKey);
         if (permis == null) {
             throw new BusinessException("## 给角色授权失败， 授权KEY错误");
         }

@@ -1,7 +1,9 @@
 package com.ray.auth.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ import com.rpc.auth.model.Permission;
 import com.rpc.auth.model.Role;
 import com.rpc.auth.model.User;
 import com.rpc.auth.service.AuthService;
-import com.rpc.auth.util.MenuUtil;
 import com.rpc.common.constants.Constants;
+import com.rpc.framework.key.GeneratePrimaryKey;
 
 /**
  * @author Vincent.wang
@@ -22,7 +24,8 @@ import com.rpc.common.constants.Constants;
  *         production为生产环境，development为测试环境
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath*:spring/framework/applicationContext.xml")
+@ContextConfiguration(locations = { "classpath*:spring/applicationContext-dao-datasource.xml", "classpath*:spring/applicationContext-dao-transaction.xml", "classpath*:spring/applicationContext-dubbo.xml",
+    "classpath*:spring/applicationContext-mybatis.xml", "classpath*:spring/applicationContext-redis.xml", "classpath*:spring/applicationContext.xml", "classpath*:spring/service/applicationContext-*.xml" })
 @ActiveProfiles("development")
 public class InitServiceTest {
 
@@ -53,15 +56,89 @@ public class InitServiceTest {
         }
     }
 
+    public static List<Permission> importPermissionData() {
+        List<Permission> permis = new ArrayList<Permission>();
+
+        Permission a = newPermission("权限模块", "auth", null, null, 1, 1);
+
+        Permission aa = newPermission("角色", a.getMenuCode() + "_role", a.getId(), null, 2, 2);
+        aa.setMenuCode(a.getId() + aa.getId());
+
+        Permission ab = newPermission("用户", a.getMenuCode() + "_user", a.getId(), null, 2, 3);
+        ab.setMenuCode(a.getId() + ab.getId());
+
+        Permission ac = newPermission("菜单", a.getMenuCode() + "_menu", a.getId(), null, 2, 4);
+        ac.setMenuCode(a.getId() + ac.getId());
+
+        Permission aaa = newPermission("角色管理", aa.getMenuCode() + "_manager", aa.getParentId(), "role/manager", 2, 5);
+        aaa.setMenuCode(aa.getParentId() + aaa.getId());
+
+        Permission aba = newPermission("用户管理", ab.getMenuCode() + "_manager", ab.getParentId(), "user/manager", 2, 6);
+        aba.setMenuCode(ab.getParentId() + aba.getId());
+
+        Permission aca = newPermission("菜单管理", ac.getMenuCode() + "_manager", ac.getParentId(), "menu/manager", 2, 7);
+        aca.setMenuCode(ac.getParentId() + aca.getId());
+
+        permis.add(a);
+        permis.add(aa);
+        permis.add(ab);
+        permis.add(ac);
+        permis.add(aaa);
+        permis.add(aba);
+        permis.add(aca);
+        return permis;
+    }
+
+    private synchronized static Permission newPermission(String menuName, String menuCode, String parentId, String url, Integer lev, Integer sort) {
+        Permission per = new Permission();
+        String id = GeneratePrimaryKey.getPkValue("t_auth_permission");
+        per.setId(id);
+        per.setMenuCode(menuCode);
+        if (StringUtils.isBlank(parentId)) {
+            per.setParentId(id);
+        } else {
+            per.setParentId(parentId + id);
+        }
+        System.out.println(id);
+        System.err.println(per.getParentId());
+        per.setMenuName(menuName);
+        per.setLev(lev);
+        per.setUrl(url);
+        per.setSort(sort);
+        return per;
+    }
+
     /**
      * 创建菜单
      */
     private void addPermission() {
         try {
-            List<Permission> permis = MenuUtil.importPermissionData();
-            for (Permission permission : permis) {
-                authService.addPermission(permission);
-            }
+            Permission a = newPermission("权限模块", "auth", null, null, 1, 1);
+            authService.addPermission(a);
+
+            Permission aa = newPermission("角色", a.getMenuCode() + "_role", a.getId(), null, 2, 2);
+            aa.setMenuCode(a.getId() + aa.getId());
+            authService.addPermission(aa);
+
+            Permission ab = newPermission("用户", a.getMenuCode() + "_user", a.getId(), null, 2, 3);
+            ab.setMenuCode(a.getId() + ab.getId());
+            authService.addPermission(ab);
+
+            Permission ac = newPermission("菜单", a.getMenuCode() + "_menu", a.getId(), null, 2, 4);
+            ac.setMenuCode(a.getId() + ac.getId());
+            authService.addPermission(ac);
+
+            Permission aaa = newPermission("角色管理", aa.getMenuCode() + "_manager", aa.getParentId(), "role/manager", 2, 5);
+            aaa.setMenuCode(aa.getParentId() + aaa.getId());
+            authService.addPermission(aaa);
+
+            Permission aba = newPermission("用户管理", ab.getMenuCode() + "_manager", ab.getParentId(), "user/manager", 2, 6);
+            aba.setMenuCode(ab.getParentId() + aba.getId());
+            authService.addPermission(aba);
+
+            Permission aca = newPermission("菜单管理", ac.getMenuCode() + "_manager", ac.getParentId(), "menu/manager", 2, 7);
+            aca.setMenuCode(ac.getParentId() + aca.getId());
+            authService.addPermission(aca);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,22 +149,12 @@ public class InitServiceTest {
      */
     private void addUsers() {
         try {
-            Role systemRole = authService.findRoleByCode(Constants.SYSTEM_ROLE_CODE);// 管理员
             Role commonRole = authService.findRoleByCode(Constants.COMMON_ROLE_CODE);// 普通用户
-            String password = "123456";
-
-            User admin = new User();
-            admin.setLoginName("admin");
-            admin.setEmail("infowangxin@163.com");
-            admin.setUserName("管理员");
-            admin.setPassword(password);
-            authService.addUser(admin, systemRole);
-
             User wangxin = new User();
             wangxin.setLoginName("wangxin");
             wangxin.setUserName("王鑫");
             wangxin.setEmail("infowangxin@139.com");
-            wangxin.setPassword(password);
+            wangxin.setPassword("123456");
             authService.addUser(wangxin, commonRole);
 
         } catch (Exception e) {
@@ -98,31 +165,11 @@ public class InitServiceTest {
     // 给角色授权
     private void bindRolePermission() {
         try {
-            // 系统管理员
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.user);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.useradd);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.upload);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.ajaxupload);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.springupload);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.download);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.zipupload);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.search);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.jquery_search);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.news);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.newsadd);
-            authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, MenuUtil.news_search);
-
-            // 普通用户
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.upload);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.ajaxupload);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.springupload);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.download);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.zipupload);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.search);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.jquery_search);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.news);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.newsadd);
-            authService.addRolePermission(Constants.COMMON_ROLE_CODE, MenuUtil.news_search);
+            List<Permission> pers = authService.getPermissions();
+            for (Permission p : pers) {
+                authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, p.getParentId()); // 系统管理员
+                authService.addRolePermission(Constants.COMMON_ROLE_CODE, p.getParentId()); // 普通用户
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
