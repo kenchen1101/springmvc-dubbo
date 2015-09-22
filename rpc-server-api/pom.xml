@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.rpc</groupId>
-	<artifactId>rpc-interface</artifactId>
+	<artifactId>rpc-server-api</artifactId>
 	<version>1.0-RELEASE</version>
 	<packaging>jar</packaging>
 
