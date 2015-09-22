@@ -4,14 +4,13 @@
 
 	<description>Shiro安全配置</description>
 
-	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<!-- 項目自定义的Realm -->
+	<bean id="authorizingRealmImpl" class="com.rpc.security.AuthorizingRealmImpl" />
+
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="authorizingRealmImpl" />
 		<property name="cacheManager" ref="shiroEhcacheManager" />
 	</bean>
-
-	<!-- 項目自定义的Realm -->
-	<bean id="authorizingRealmImpl" class="com.rpc.security.AuthorizingRealmImpl" />
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -30,7 +29,7 @@
 
 	<!-- 用户授权信息Cache, 采用EhCache -->
 	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml" />
+		<property name="cacheManagerConfigFile" value="classpath:config/ehcache-shiro.xml" />
 	</bean>
 
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
@@ -44,5 +43,6 @@
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
-	
+
+
 </beans>

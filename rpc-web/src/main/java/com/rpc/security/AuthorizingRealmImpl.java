@@ -52,10 +52,6 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("## 正在验证用户登录...");
-            }
-
             UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
             String username = token.getUsername();
 
@@ -82,10 +78,10 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(), ByteSource.Util.bytes(salt), getName());
             return info;
         } catch (AuthenticationException e) {
-            log.error("# doGetAuthenticationInfo error , message={}", e.getMessage());
+            log.error("# 登录失败 , AuthenticationException.message={}", e.getMessage());
             throw e;
         } catch (Exception e) {
-            log.error("# doGetAuthenticationInfo error , message={}", e.getMessage());
+            log.error(" 登录失败 , Exception.message={}", e.getMessage());
             throw new AuthenticationException(e);
         }
 

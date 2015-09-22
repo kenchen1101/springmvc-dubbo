@@ -8,7 +8,22 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:spring/framework/applicationContext.xml</param-value>
+		<param-value>
+			classpath*:spring/applicationContext-dao-datasource.xml,
+			classpath*:spring/applicationContext-dao-transaction.xml,
+			classpath*:spring/applicationContext-dubbo.xml,
+			classpath*:spring/applicationContext-mybatis.xml,
+			classpath*:spring/applicationContext-redis.xml,
+			classpath*:spring/applicationContext.xml,
+			classpath*:spring/service/applicationContext-*.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<!-- development:以开发环境启动，production：以生产环境启动 -->
+		<param-name>spring.profiles.default</param-name>
+		<param-value>development</param-value>
+		<!-- <param-value>production</param-value> -->
 	</context-param>
 
 	<filter>

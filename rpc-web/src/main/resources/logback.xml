@@ -4,7 +4,7 @@
 
 	<!-- MaxHistory:日志保存的天数 -->
 
-	<property name="logBase" value="${HOME:-./logs}" />
+	<property resource="logback.properties" />
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -56,7 +56,6 @@
 	<logger name="org.springframework" level="debug" />
 	<logger name="com.alibaba" level="info" />
 
-	<logger name="net.spy.memcached" level="info" />
 	<logger name="com.netflix" level="INFO" />
 	<logger name="redis.clients" level="INFO" />
 

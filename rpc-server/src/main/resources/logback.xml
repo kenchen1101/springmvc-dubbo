@@ -51,17 +51,14 @@
 	</appender>
 
 	<logger name="com.rpc" level="debug" />
-	<logger name="org.springframework" level="info" />
-	<logger name="com.dubbo" level="debug" />
 	<logger name="org.apache" level="info" />
+	<logger name="org.apache.zookeeper" level="info" />
+	<logger name="org.springframework" level="info" />
 	<logger name="com.alibaba" level="info" />
 
-	<logger name="net.spy.memcached" level="info" />
-
-	<logger name="org.mybatis" level="error" />
 	<logger name="com.netflix" level="info" />
-	<logger name="org.apache.zookeeper" level="info" />
 	<logger name="redis.clients" level="info" />
+	<logger name="org.mybatis" level="error" />
 
 	<logger name="org.apache.ibatis.jdbc.ScriptRunner" level="debug" />
 	<logger name="java.sql.Connection" level="debug" />

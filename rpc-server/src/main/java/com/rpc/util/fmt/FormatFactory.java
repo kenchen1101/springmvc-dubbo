@@ -22,7 +22,7 @@ import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 
 import com.rpc.util.fmt.xml.CDDATAEscapeHandler;
-import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
+import com.sun.xml.txw2.output.CharacterEscapeHandler;
 
 /**
  * JSON与XML的转换工具类
@@ -37,7 +37,6 @@ import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
  * </pre>
  * 
  */
-@SuppressWarnings("restriction")
 public class FormatFactory {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

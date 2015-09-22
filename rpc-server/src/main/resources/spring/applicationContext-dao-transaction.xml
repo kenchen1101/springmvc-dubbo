@@ -32,7 +32,6 @@
 		</tx:attributes>
 	</tx:advice>
 
-
 	<!-- 事务AOP -->
 	<aop:config>
 		<aop:pointcut id="txPointCut" expression="execution(* com.rpc..*Service.*(..))" />

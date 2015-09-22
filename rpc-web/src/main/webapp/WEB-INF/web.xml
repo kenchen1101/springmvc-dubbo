@@ -9,38 +9,21 @@
 	<!-- 加载Spring Context配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:spring/framework/applicationContext.xml	</param-value>
+		<param-value>
+			classpath*:spring/applicationContext-dubbo.xml,
+			classpath*:spring/applicationContext-mvc.xml,
+			classpath*:spring/applicationContext-shiro.xml	,
+			classpath*:spring/applicationContext.xml	,
+			classpath*:spring/service/applicationContext-*.xml
+		</param-value>
 	</context-param>
 
-	<!-- Shiro Security filter -->
-	<filter>
-		<filter-name>shiroFilter</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-
-	<!-- SpringMVC配置 -->
-	<servlet>
-		<servlet-name>dispatcherServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath*:spring/framework/applicationContext-mvc.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>dispatcherServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	<context-param>
+		<!-- development:以开发环境启动，production：以生产环境启动 -->
+		<param-name>spring.profiles.default</param-name>
+		<param-value>development</param-value>
+		<!-- <param-value>production</param-value> -->
+	</context-param>
 
 	<!-- 利用Spring自带的过滤器解决乱码问题 -->
 	<filter>
@@ -61,48 +44,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- 根据不同的时间界面的列表显示 -->
-	<!-- <filter> -->
-	<!-- <filter-name>AccordingToDateShow</filter-name> -->
-	<!-- <filter-class>com.xjh.common.filter.AccordingToDateShowFilter</filter-class> -->
-	<!-- 是否开启前台时间输入(true开启；false关闭) -->
-	<!-- <init-param> -->
-	<!-- <param-name>isDateOpen</param-name> -->
-	<!-- <param-value>false</param-value> -->
-	<!-- </init-param> -->
-	<!-- </filter> -->
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>AccordingToDateShow</filter-name> -->
-	<!-- <url-pattern>/*</url-pattern> -->
-	<!-- </filter-mapping> -->
-	<!--XSS攻击 -->
-	<!-- <filter> -->
-	<!-- <filter-name>XSS</filter-name> -->
-	<!-- <filter-class>com.xjh.authority.filter.XSSSecurityFilter</filter-class> -->
-	<!-- <init-param> -->
-	<!-- <param-name>securityconfig</param-name> -->
-	<!-- <param-value>/WEB-INF/conf/xss_security_config.xml</param-value> -->
-	<!-- </init-param> -->
-	<!-- </filter> -->
+	<!-- Shiro Security filter -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
 
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>XSS</filter-name> -->
-	<!-- <url-pattern>/*</url-pattern> -->
-	<!-- </filter-mapping> -->
-
-	<!-- <filter> -->
-	<!-- <filter-name>XSSCheck</filter-name> -->
-	<!-- <filter-class>com.xjh.authority.filter.XSSCheckFilter</filter-class> -->
-	<!-- <init-param> -->
-	<!-- <param-name>securityconfig</param-name> -->
-	<!-- <param-value>/*</param-value> -->
-	<!-- </init-param> -->
-	<!-- </filter> -->
-
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>XSSCheck</filter-name> -->
-	<!-- <url-pattern>/*</url-pattern> -->
-	<!-- </filter-mapping> -->
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>sitemeshFilter</filter-name>
@@ -114,6 +67,21 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- SpringMVC配置 -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:spring/framework/applicationContext-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 
 	<error-page>
 		<error-code>403</error-code>

@@ -3,14 +3,13 @@ package com.rpc.util.fmt.xml;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 /**
  * 
  * @author Vincent.Wang
  *
  */
-@SuppressWarnings("restriction")
 public class CDDATAEscapeHandler implements CharacterEscapeHandler {
 
     @Override
