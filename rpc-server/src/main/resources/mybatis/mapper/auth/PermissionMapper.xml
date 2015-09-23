@@ -51,7 +51,7 @@
 		<include refid="from_xxx" />
 	</select>
 
-	<select id="findById" parameterType="int" resultMap="permissionMap">
+	<select id="findById" parameterType="string" resultMap="permissionMap">
 		<include refid="find_xxx" />
 		<include refid="from_xxx" />
 		WHERE ID=#{id}

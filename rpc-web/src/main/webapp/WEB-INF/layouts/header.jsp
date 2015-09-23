@@ -15,19 +15,14 @@
 				<li class="active"><a href="${ctx }/index">首页</a></li>
 				<c:if test="${not empty permission_session }">
 					<c:forEach items="${permission_session }" var="per">
-
-						<c:if test="${not empty per && per.lev==1 }">
-
-							<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">${per.menuName } <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<c:forEach items="${per.children }" var="c">
-										<c:if test="${c.lev==2 }">
-											<li id="${c.id }"><a href="${ctx }/${c.url}">${c.menuName }</a></li>
-										</c:if>
-									</c:forEach>
-								</ul></li>
-
-						</c:if>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">${per.menuName } <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<c:forEach items="${per.children }" var="c">
+									<c:if test="${c.lev==2 }">
+										<li id="${c.id }"><a href="${ctx }/${c.url}">${c.menuName }</a></li>
+									</c:if>
+								</c:forEach>
+							</ul></li>
 					</c:forEach>
 
 				</c:if>

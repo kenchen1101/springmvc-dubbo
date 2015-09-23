@@ -33,6 +33,7 @@ import com.rpc.auth.service.AuthService;
 import com.rpc.auth.util.MenuUtil;
 import com.rpc.common.constants.Constants;
 import com.rpc.common.exception.BusinessException;
+import com.rpc.common.fmt.FormatFactory;
 import com.rpc.util.salt.Encodes;
 
 /**
@@ -73,15 +74,16 @@ public class AuthorizingRealmImpl extends AuthorizingRealm {
             principal.setRoles(authService.findRoleByUserId(user.getId()));
             List<Permission> pers = authService.getPermissionsByUserId(user.getId());
             List<PermissionDto> perDtos = MenuUtil.getMenus(pers);
+            System.err.println(FormatFactory.objectToJson(perDtos));
             SecurityUtils.getSubject().getSession().setAttribute(Constants.PERMISSION_SESSION, perDtos);
 
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, user.getPassword(), ByteSource.Util.bytes(salt), getName());
             return info;
         } catch (AuthenticationException e) {
-            log.error("# 登录失败 , AuthenticationException.message={}", e.getMessage());
+            log.error("# 登录失败 , AuthenticationException.message={}", e.getLocalizedMessage());
             throw e;
         } catch (Exception e) {
-            log.error(" 登录失败 , Exception.message={}", e.getMessage());
+            log.error(" 登录失败 , Exception.message={}", e.getLocalizedMessage());
             throw new AuthenticationException(e);
         }
 

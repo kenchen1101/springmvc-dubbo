@@ -133,12 +133,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void addRolePermission(String roleCode, String permissionKey) {
+    public void addRolePermission(String roleCode, String permissionId) {
         Role role = findRoleByCode(roleCode);
         if (role == null) {
             throw new BusinessException("## 给角色授权失败， 角色编码错误");
         }
-        Permission permis = permissionMapper.findPermissionByParentId(permissionKey);
+        Permission permis = permissionMapper.findById(permissionId);
         if (permis == null) {
             throw new BusinessException("## 给角色授权失败， 授权KEY错误");
         }

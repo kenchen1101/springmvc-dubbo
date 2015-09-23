@@ -1,6 +1,5 @@
 package com.ray.auth.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -56,51 +55,15 @@ public class InitServiceTest {
         }
     }
 
-    public static List<Permission> importPermissionData() {
-        List<Permission> permis = new ArrayList<Permission>();
-
-        Permission a = newPermission("权限模块", "auth", null, null, 1, 1);
-
-        Permission aa = newPermission("角色", a.getMenuCode() + "_role", a.getId(), null, 2, 2);
-        aa.setMenuCode(a.getId() + aa.getId());
-
-        Permission ab = newPermission("用户", a.getMenuCode() + "_user", a.getId(), null, 2, 3);
-        ab.setMenuCode(a.getId() + ab.getId());
-
-        Permission ac = newPermission("菜单", a.getMenuCode() + "_menu", a.getId(), null, 2, 4);
-        ac.setMenuCode(a.getId() + ac.getId());
-
-        Permission aaa = newPermission("角色管理", aa.getMenuCode() + "_manager", aa.getParentId(), "role/manager", 2, 5);
-        aaa.setMenuCode(aa.getParentId() + aaa.getId());
-
-        Permission aba = newPermission("用户管理", ab.getMenuCode() + "_manager", ab.getParentId(), "user/manager", 2, 6);
-        aba.setMenuCode(ab.getParentId() + aba.getId());
-
-        Permission aca = newPermission("菜单管理", ac.getMenuCode() + "_manager", ac.getParentId(), "menu/manager", 2, 7);
-        aca.setMenuCode(ac.getParentId() + aca.getId());
-
-        permis.add(a);
-        permis.add(aa);
-        permis.add(ab);
-        permis.add(ac);
-        permis.add(aaa);
-        permis.add(aba);
-        permis.add(aca);
-        return permis;
-    }
-
-    private synchronized static Permission newPermission(String menuName, String menuCode, String parentId, String url, Integer lev, Integer sort) {
+    private synchronized static Permission newPermission(String menuName, String parentId, String url, Integer lev, Integer sort) {
         Permission per = new Permission();
         String id = GeneratePrimaryKey.getPkValue("t_auth_permission");
         per.setId(id);
-        per.setMenuCode(menuCode);
         if (StringUtils.isBlank(parentId)) {
             per.setParentId(id);
         } else {
-            per.setParentId(parentId + id);
+            per.setParentId(parentId);
         }
-        System.out.println(id);
-        System.err.println(per.getParentId());
         per.setMenuName(menuName);
         per.setLev(lev);
         per.setUrl(url);
@@ -113,30 +76,31 @@ public class InitServiceTest {
      */
     private void addPermission() {
         try {
-            Permission a = newPermission("权限模块", "auth", null, null, 1, 1);
+            Permission a = newPermission("权限模块", null, null, 1, 1);
+            a.setMenuCode(a.getId());
             authService.addPermission(a);
 
-            Permission aa = newPermission("角色", a.getMenuCode() + "_role", a.getId(), null, 2, 2);
+            Permission aa = newPermission("角色", a.getId(), null, 2, 2);
             aa.setMenuCode(a.getId() + aa.getId());
             authService.addPermission(aa);
 
-            Permission ab = newPermission("用户", a.getMenuCode() + "_user", a.getId(), null, 2, 3);
+            Permission ab = newPermission("用户", a.getId(), null, 2, 3);
             ab.setMenuCode(a.getId() + ab.getId());
             authService.addPermission(ab);
 
-            Permission ac = newPermission("菜单", a.getMenuCode() + "_menu", a.getId(), null, 2, 4);
+            Permission ac = newPermission("菜单", a.getId(), null, 2, 4);
             ac.setMenuCode(a.getId() + ac.getId());
             authService.addPermission(ac);
 
-            Permission aaa = newPermission("角色管理", aa.getMenuCode() + "_manager", aa.getParentId(), "role/manager", 2, 5);
+            Permission aaa = newPermission("角色管理", aa.getId(), "role/manager", 3, 5);
             aaa.setMenuCode(aa.getParentId() + aaa.getId());
             authService.addPermission(aaa);
 
-            Permission aba = newPermission("用户管理", ab.getMenuCode() + "_manager", ab.getParentId(), "user/manager", 2, 6);
+            Permission aba = newPermission("用户管理", ab.getId(), "user/manager", 3, 6);
             aba.setMenuCode(ab.getParentId() + aba.getId());
             authService.addPermission(aba);
 
-            Permission aca = newPermission("菜单管理", ac.getMenuCode() + "_manager", ac.getParentId(), "menu/manager", 2, 7);
+            Permission aca = newPermission("菜单管理", ac.getId(), "menu/manager", 3, 7);
             aca.setMenuCode(ac.getParentId() + aca.getId());
             authService.addPermission(aca);
         } catch (Exception e) {
@@ -167,8 +131,8 @@ public class InitServiceTest {
         try {
             List<Permission> pers = authService.getPermissions();
             for (Permission p : pers) {
-                authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, p.getParentId()); // 系统管理员
-                authService.addRolePermission(Constants.COMMON_ROLE_CODE, p.getParentId()); // 普通用户
+                authService.addRolePermission(Constants.SYSTEM_ROLE_CODE, p.getId()); // 系统管理员
+                authService.addRolePermission(Constants.COMMON_ROLE_CODE, p.getId()); // 普通用户
             }
         } catch (Exception e) {
             e.printStackTrace();
