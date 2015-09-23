@@ -5,22 +5,27 @@
 <head>
 <title>首页</title>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<link href="<c:url value='/static/jquery/themes/base/jquery-ui.min.css?${version_css}'/>" rel="stylesheet" type="text/css" />
+<%-- <link href="<c:url value='/static/jquery/themes/base/jquery-ui.min.css?${version_css}'/>" rel="stylesheet" type="text/css" /> --%>
 </head>
 <body>
-	<form:form class="form-horizontal">
-		<div class="form-group">
-			<div class="col-sm-2">
-				<input type="text" class="form-control" name="keywords" id="keywords" />
-			</div>
-			<div class="col-sm-2">
-				<button class="btn btn-default" type="button" id="searchBtn">搜索</button>
-			</div>
-		</div>
-	</form:form>
-	<div class="well	">
+
+	<div class="col-sm-offset-1">
 		<div class="row">
-			<table class="table table-condensed">
+			<form:form class="form-inline">
+				<div class="form-group">
+					<label for="exampleInputName2">项目</label> <input type="text" class="form-control" id="exampleInputName2" placeholder="项目">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail2">名称</label> <input type="text" class="form-control" id="exampleInputEmail2" placeholder="名称">
+				</div>
+				<button type="submit" class="btn btn-default">查询</button>
+			</form:form>
+		</div>
+	</div>
+	<br />
+	<div class="col-sm-offset-1">
+		<div class="row ">
+			<table class="table table-hover table-condensed col-sm-4 broder1">
 				<thead>
 					<tr>
 						<th>项目</th>
@@ -45,6 +50,7 @@
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 
 </body>

@@ -71,6 +71,7 @@
 			</ul>
 		</div>
 	</nav>
+
 	<div id="wrap">
 		<div class="container">
 			<div id="content">
@@ -78,6 +79,14 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/layouts/footer.jsp"%>
+
+	<div id="footer">
+		<div class="container">
+			<p class="text-center text-muted credit">
+				Copyright &copy; 2008-2013 <a href="https://github.com/infowangxin/springmvc-dubbo">github.com</a>
+			</p>
+		</div>
+	</div>
+
 </body>
 </html>
