@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cn.rpc.mongo.entity.RpcLogEntity;
-import cn.rpc.mongo.service.RpcLogService;
+import cn.rpc.mongo.entity.BusiLog;
+import cn.rpc.mongo.service.BusiLogService;
 
 /**
  * @author Vincent.wang
@@ -23,12 +23,12 @@ public class MainController {
     private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    private RpcLogService rpcLogService;
+    private BusiLogService rpcLogService;
 
     @RequestMapping("/index")
     public String index(Model model) {
         log.warn("## springmvc-mongodb index page.");
-        List<RpcLogEntity> rpcLogs = rpcLogService.findRpcLogEntityAll();
+        List<BusiLog> rpcLogs = rpcLogService.findBusiLogAll();
         model.addAttribute("rpcLogs", rpcLogs);
         return "index";
     }

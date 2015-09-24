@@ -24,7 +24,7 @@ import com.rpc.framework.key.GeneratePrimaryKey;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-dao-datasource.xml", "classpath*:spring/applicationContext-dao-transaction.xml", "classpath*:spring/applicationContext-dubbo.xml",
-    "classpath*:spring/applicationContext-mybatis.xml", "classpath*:spring/applicationContext-redis.xml", "classpath*:spring/applicationContext.xml", "classpath*:spring/service/applicationContext-*.xml" })
+    "classpath*:spring/applicationContext-mybatis.xml",  "classpath*:spring/applicationContext.xml", "classpath*:spring/service/applicationContext-*.xml" })
 @ActiveProfiles("development")
 public class InitServiceTest {
 

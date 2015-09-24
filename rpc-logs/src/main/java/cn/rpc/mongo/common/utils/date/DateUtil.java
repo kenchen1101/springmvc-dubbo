@@ -52,6 +52,28 @@ public class DateUtil {
     public static final String cn_MMdd = "MM月dd日";
 
     /**
+     * timeStamp 字符串转成日期格式字符串
+     * 
+     * @param millSec
+     *            timeStamp 字符串
+     * @return 日期字符串
+     */
+    public static String transferLongToString(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat(fm_yyyy_MM_dd_HHmmssSSS);
+        Date date = new Date(millSec);
+        return sdf.format(date);
+    }
+
+    /**
+     * timeStamp 字符串转成日期
+     * 
+     * @return 日期
+     */
+    public static Date transferLongToDate(Long millSec) {
+        return new Date(millSec);
+    }
+
+    /**
      * 去除时分秒
      * 
      * @param cur

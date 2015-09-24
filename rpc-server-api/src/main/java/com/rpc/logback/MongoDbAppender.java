@@ -13,11 +13,12 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.ServerAddress;
+import com.rpc.util.DateUtil;
 
 public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
 
     // 项目名
-    private String project;
+    private String system;
 
     // 数据库
     private String database;
@@ -34,12 +35,12 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
     @Override
     protected void append(E event) {
         BasicDBObject doc = new BasicDBObject();
-        doc.put("project", project);
-        doc.put("time_stamp", event.getTimeStamp());
+        doc.put("system_name", system);
+        doc.put("time_stamp", DateUtil.transferLongToString(event.getTimeStamp()));
         doc.put("level", logLevel(event.getLevel()));
         doc.put("thread_name", event.getThreadName());
-        doc.put("logger_name", event.getLoggerName());
-        doc.put("formatted_message", event.getFormattedMessage());
+        doc.put("log_name", event.getLoggerName());
+        doc.put("message", event.getFormattedMessage());
         dbCol.insert(doc);
     }
 
@@ -53,6 +54,8 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
             return "warn";
         case Level.ERROR_INT:
             return "error";
+        case Level.TRACE_INT:
+            return "trace";
         default:
             return "X";
         }
@@ -119,8 +122,8 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
         super.stop();
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setSystem(String system) {
+        this.system = system;
     }
 
     public void addMongoServerAddress(MongoServerAddress address) {

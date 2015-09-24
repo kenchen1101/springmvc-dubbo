@@ -8,7 +8,7 @@
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>[${project}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
@@ -18,7 +18,7 @@
 			<address>${mongo.server.address}</address>
 			<port>${mongo.server.port}</port>
 		</mongoServerAddress>
-		<project>${project}</project>
+		<system>${system_name}</system>
 		<database>${mongo.database}</database>
 		<collection>${mongo.collection}</collection>
 	</appender>
@@ -29,7 +29,7 @@
 			<MaxHistory>1</MaxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>[${project}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
@@ -45,7 +45,7 @@
 			<MaxHistory>1</MaxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>[${project}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>

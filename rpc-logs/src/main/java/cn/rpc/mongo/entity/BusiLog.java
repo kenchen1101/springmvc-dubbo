@@ -1,15 +1,19 @@
 package cn.rpc.mongo.entity;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * @author Vincent.wang
  *
  */
 @Document(collection = "logs")
-public class RpcLogEntity implements BaseEntity<String> {
+public class BusiLog implements BaseEntity<String> {
 
     private static final long serialVersionUID = 1538192110129669137L;
 
@@ -18,12 +22,14 @@ public class RpcLogEntity implements BaseEntity<String> {
     private String id;
 
     // 日志对应的业务系统标识
-    @Field("project")
-    private String project;
+    @Field("system_name")
+    private String systemName;
 
     // 日志产生的时间
+    // @DateTimeFormat(style = DateUtil.fm_yyyy_MM_dd_HHmmssSSS)
+    @DateTimeFormat(iso = ISO.DATE_TIME)
     @Field("time_stamp")
-    private Long timeStamp;
+    private Date timeStamp;
 
     // 日志级别
     @Field("level")
@@ -34,12 +40,12 @@ public class RpcLogEntity implements BaseEntity<String> {
     private String threadName;
 
     // 日志当中类名称
-    @Field("logger_name")
-    private String loggerName;
+    @Field("log_name")
+    private String logName;
 
     // 日志的描述
-    @Field("formatted_message")
-    private String formattedMessage;
+    @Field("message")
+    private String message;
 
     public String getId() {
         return id;
@@ -49,19 +55,19 @@ public class RpcLogEntity implements BaseEntity<String> {
         this.id = id;
     }
 
-    public String getProject() {
-        return project;
+    public String getSystemName() {
+        return systemName;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
-    public Long getTimeStamp() {
+    public Date getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Long timeStamp) {
+    public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -81,20 +87,20 @@ public class RpcLogEntity implements BaseEntity<String> {
         this.threadName = threadName;
     }
 
-    public String getLoggerName() {
-        return loggerName;
+    public String getLogName() {
+        return logName;
     }
 
-    public void setLoggerName(String loggerName) {
-        this.loggerName = loggerName;
+    public void setLogName(String logName) {
+        this.logName = logName;
     }
 
-    public String getFormattedMessage() {
-        return formattedMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setFormattedMessage(String formattedMessage) {
-        this.formattedMessage = formattedMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

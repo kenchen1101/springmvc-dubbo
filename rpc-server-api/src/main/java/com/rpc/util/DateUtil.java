@@ -19,8 +19,33 @@ public final class DateUtil {
 
     private final static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    // ** yyyy-MM-dd HH:mm:ss.SSS
+    public static final String fm_yyyy_MM_dd_HHmmssSSS = "yyyy-MM-dd HH:mm:ss.SSS";
+
     private DateUtil() {
 
+    }
+
+    /**
+     * timeStamp 字符串转成日期格式字符串
+     * 
+     * @param millSec
+     *            timeStamp 字符串
+     * @return 日期字符串
+     */
+    public static String transferLongToString(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        Date date = new Date(millSec);
+        return sdf.format(date);
+    }
+
+    /**
+     * timeStamp 字符串转成日期
+     * 
+     * @return 日期
+     */
+    public static Date transferLongToDate(Long millSec) {
+        return new Date(millSec);
     }
 
     /**

@@ -10,37 +10,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import cn.rpc.mongo.common.utils.Pagination;
+import cn.rpc.mongo.common.utils.Page;
 
 @Repository
-public class MongoRepositoryImpl<T> implements MongoRepository<T> {
+public abstract class MongoRepositoryImpl<T> implements MongoRepository<T> {
 
     @Resource(name = "mongoTemplate")
     private MongoTemplate mongoTemplate;
-
-    @Override
-    public List<T> findAll(Class<T> entity) {
-        return mongoTemplate.findAll(entity);
-    }
-
-    @Override
-    public Pagination<T> findPagination(Class<T> entity) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<T> findByRegex(String regex, Class<T> entity) {
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Criteria criteria = new Criteria("name").regex(pattern.toString());
-        return mongoTemplate.find(new Query(criteria), entity);
-
-    }
-
-    @Override
-    public T findOne(String id, Class<T> entity) {
-        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), entity);
-    }
 
     @Override
     public void insert(Object entity) {
@@ -48,14 +24,40 @@ public class MongoRepositoryImpl<T> implements MongoRepository<T> {
     }
 
     @Override
-    public void removeOne(String id, Class<T> entity) {
-        Criteria criteria = Criteria.where("id").in(id);
-        if (criteria != null) {
-            Query query = new Query(criteria);
-            if (query != null && mongoTemplate.findOne(query, entity) != null) {
-                mongoTemplate.remove(mongoTemplate.findOne(query, entity));
-            }
-        }
+    public List<T> find(Query query) {
+        return mongoTemplate.find(query, this.getEntityClass());
+    }
+
+    @Override
+    public T findOne(String id) {
+        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), getEntityClass());
+    }
+
+    @Override
+    public List<T> findByRegex(String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Criteria criteria = new Criteria("name").regex(pattern.toString());
+        return mongoTemplate.find(new Query(criteria), getEntityClass());
+    }
+
+    @Override
+    public List<T> findAll() {
+        return mongoTemplate.findAll(getEntityClass());
+    }
+
+    @Override
+    public Page<T> findPagination(Page<T> page, Query query) {
+        int pageSize = page.getPageSize();
+        page.setTotalCount(this.count());
+        query.skip((page.getCurrentPage() - 1) * pageSize).limit(pageSize);
+        List<T> rows = this.find(query);
+        page.setResultList(rows);
+        return page;
+    }
+
+    @Override
+    public long count() {
+        return mongoTemplate.count(new Query(), getEntityClass());
     }
 
     @Override
@@ -64,10 +66,14 @@ public class MongoRepositoryImpl<T> implements MongoRepository<T> {
     }
 
     @Override
-    public T findEntityByCriteria(Criteria criteria, Class<T> entity) {
-        Query query = new Query();
-        query.addCriteria(criteria);
-        return mongoTemplate.findOne(query, entity);
+    public void removeOne(String id) {
+        Criteria criteria = Criteria.where("id").in(id);
+        if (criteria != null) {
+            Query query = new Query(criteria);
+            if (query != null && mongoTemplate.findOne(query, getEntityClass()) != null) {
+                mongoTemplate.remove(mongoTemplate.findOne(query, getEntityClass()));
+            }
+        }
     }
 
 }

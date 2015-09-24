@@ -2,26 +2,30 @@ package cn.rpc.mongo.repository;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
-import cn.rpc.mongo.common.utils.Pagination;
+import cn.rpc.mongo.common.utils.Page;
 
 public interface MongoRepository<T> {
 
+    public Class<T> getEntityClass();
+
     public void insert(Object entity);
 
-    public T findOne(String id, Class<T> entity);
+    public List<T> find(Query query);
 
-    public List<T> findByRegex(String regex, Class<T> entity);
+    public T findOne(String id);
 
-    public void removeOne(String id, Class<T> entity);
+    public List<T> findByRegex(String regex);
 
-    public List<T> findAll(Class<T> entity);
+    public List<T> findAll();
 
-    public Pagination<T> findPagination(Class<T> entity);
+    public Page<T> findPagination(Page<T> page, Query query);
+
+    public long count();
 
     public void updateEntity(Object entity);
 
-    public T findEntityByCriteria(Criteria criteria, Class<T> entity);
+    public void removeOne(String id);
 
 }
