@@ -45,7 +45,7 @@ public class BusiLogServiceImpl extends MongoRepositoryImpl<BusiLog> implements 
         Query query = new Query();
 
         if (null != beginDate && null != endDate)
-//            query.addCriteria(Criteria.where("time_stamp").elemMatch(Criteria.where("startDate").lte(beginDate).and("endDate").gte(endDate)));
+            query.addCriteria(Criteria.where("createTime").gte(beginDate).lte(endDate));
 
         if (StringUtils.isNotBlank(systemName))
             query.addCriteria(Criteria.where("system_name").is(systemName));

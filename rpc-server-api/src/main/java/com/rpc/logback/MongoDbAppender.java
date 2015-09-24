@@ -4,16 +4,17 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.AppenderBase;
-import ch.qos.logback.core.status.ErrorStatus;
+import org.joda.time.DateTime;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.ServerAddress;
-import com.rpc.util.DateUtil;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.AppenderBase;
+import ch.qos.logback.core.status.ErrorStatus;
 
 public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
 
@@ -36,7 +37,7 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
     protected void append(E event) {
         BasicDBObject doc = new BasicDBObject();
         doc.put("system_name", system);
-        doc.put("time_stamp", DateUtil.transferLongToString(event.getTimeStamp()));
+        doc.put("create_time", new DateTime(event.getTimeStamp()).toDate());
         doc.put("level", logLevel(event.getLevel()));
         doc.put("thread_name", event.getThreadName());
         doc.put("log_name", event.getLoggerName());

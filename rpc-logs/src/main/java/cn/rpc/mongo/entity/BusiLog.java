@@ -5,8 +5,6 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * @author Vincent.wang
@@ -26,10 +24,8 @@ public class BusiLog implements BaseEntity<String> {
     private String systemName;
 
     // 日志产生的时间
-    // @DateTimeFormat(style = DateUtil.fm_yyyy_MM_dd_HHmmssSSS)
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Field("time_stamp")
-    private Date timeStamp;
+    @Field("create_time")
+    private Date createTime;
 
     // 日志级别
     @Field("level")
@@ -63,12 +59,12 @@ public class BusiLog implements BaseEntity<String> {
         this.systemName = systemName;
     }
 
-    public Date getTimeStamp() {
-        return timeStamp;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getLevel() {

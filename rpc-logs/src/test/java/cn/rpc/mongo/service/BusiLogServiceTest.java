@@ -28,8 +28,8 @@ public class BusiLogServiceTest {
     public void findBusiLogByPage() {
         try {
             Page<BusiLog> page = new Page<BusiLog>();
-            Date begin = DateUtil.stirngToDate("2015-09-24 14:33:49.590", DateUtil.fm_yyyy_MM_dd_HHmmssSSS);
-            Date end = DateUtil.stirngToDate("2015-09-24 14:33:49.610", DateUtil.fm_yyyy_MM_dd_HHmmssSSS);
+            Date begin = DateUtil.stirngToDate("2015/9/25 2:13:04", "yyyy/MM/dd HH:mm:ss");
+            Date end = DateUtil.stirngToDate("2015/9/25 2:13:08", "yyyy/MM/dd HH:mm:ss");
             String system = "rpc-server";
             String level = "";
             String threadName = "";
@@ -37,8 +37,7 @@ public class BusiLogServiceTest {
             String messgae = "";
             page = rpcLogService.findBusiLogByPage(page, begin, end, system, level, threadName, logName, messgae);
             for (BusiLog r : page.getResultList()) {
-                // log.warn("## {} , {} , {}", r.getId(), DateUtil.transferLongToString(r.getTimeStamp()), r.getMessage());
-                log.warn("## {} , {} ,  {}", r.getId(), DateUtil.dateToString(r.getTimeStamp(), DateUtil.fm_yyyy_MM_dd_HHmmssSSS), r.getLogName());
+                log.warn("## {} , {} ,  {}", r.getId(), DateUtil.dateToString(r.getCreateTime(), DateUtil.fm_yyyy_MM_dd_HHmmssSSS), r.getLogName());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,8 +49,7 @@ public class BusiLogServiceTest {
         try {
             List<BusiLog> rpcLogEntitys = rpcLogService.findBusiLogAll();
             for (BusiLog r : rpcLogEntitys) {
-                // log.warn("## {} , {} , {} ", r.getId(), DateUtil.transferLongToString(r.getTimeStamp()), r.getLogName());
-                log.warn("## {} , {} ,  {}", r.getId(), DateUtil.dateToString(r.getTimeStamp(), DateUtil.fm_yyyy_MM_dd_HHmmssSSS), r.getLogName());
+                log.warn("## {} , {} ,  {}", r.getId(), DateUtil.dateToString(r.getCreateTime(), DateUtil.fm_yyyy_MM_dd_HHmmssSSS), r.getLogName());
             }
         } catch (Exception e) {
             e.printStackTrace();
