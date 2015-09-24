@@ -1,15 +1,16 @@
 package cn.rpc.mongo.web.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.rpc.mongo.common.utils.Page;
+import cn.rpc.mongo.dto.BusiLogDto;
 import cn.rpc.mongo.entity.BusiLog;
 import cn.rpc.mongo.service.BusiLogService;
 
@@ -27,10 +28,19 @@ public class MainController {
 
     @RequestMapping("/index")
     public String index(Model model) {
-        log.warn("## springmvc-mongodb index page.");
-        List<BusiLog> rpcLogs = rpcLogService.findBusiLogAll();
-        model.addAttribute("rpcLogs", rpcLogs);
+        log.warn("## rpc-logs index page.");
+        Page<BusiLog> page = new Page<BusiLog>();
+        page = rpcLogService.findBusiLogByPage(page, null);
+        model.addAttribute("page", page);
         return "index";
+    }
+
+    @RequestMapping("/query")
+    public Page<BusiLog> page(@ModelAttribute("busiLogDto") BusiLogDto busiLogDto) {
+        log.warn("## rpc-logs index page.");
+        Page<BusiLog> page = new Page<BusiLog>(busiLogDto.getCurrentPage());
+        page = rpcLogService.findBusiLogByPage(page, busiLogDto);
+        return page;
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)

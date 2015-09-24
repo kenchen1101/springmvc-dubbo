@@ -28,6 +28,14 @@ public class Page<T> implements Serializable {
     /** 当前页对应的记录列表 */
     private List<T> resultList;
 
+    public Page() {
+
+    }
+
+    public Page(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
     /**
      * 计算总页数
      * 

@@ -1,6 +1,5 @@
 package cn.rpc.mongo.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import cn.rpc.mongo.common.utils.Page;
+import cn.rpc.mongo.dto.BusiLogDto;
 import cn.rpc.mongo.entity.BusiLog;
 import cn.rpc.mongo.repository.MongoRepositoryImpl;
 import cn.rpc.mongo.service.BusiLogService;
@@ -41,27 +41,27 @@ public class BusiLogServiceImpl extends MongoRepositoryImpl<BusiLog> implements 
     }
 
     @Override
-    public Page<BusiLog> findBusiLogByPage(Page<BusiLog> page, Date beginDate, Date endDate, String systemName, String level, String threadName, String logName, String message) {
+    public Page<BusiLog> findBusiLogByPage(Page<BusiLog> page, BusiLogDto dto) {
         Query query = new Query();
+        if (dto != null) {
+            if (null != dto.getBeginTime() && null != dto.getEndTime())
+                query.addCriteria(Criteria.where("create_time").gte(dto.getBeginTime()).lte(dto.getEndTime()));
 
-        if (null != beginDate && null != endDate)
-            query.addCriteria(Criteria.where("createTime").gte(beginDate).lte(endDate));
+            if (StringUtils.isNotBlank(dto.getSystemName()))
+                query.addCriteria(Criteria.where("system_name").is(dto.getSystemName()));
 
-        if (StringUtils.isNotBlank(systemName))
-            query.addCriteria(Criteria.where("system_name").is(systemName));
+            if (StringUtils.isNotBlank(dto.getLevel()))
+                query.addCriteria(Criteria.where("level").is(dto.getLevel()));
 
-        if (StringUtils.isNotBlank(level))
-            query.addCriteria(Criteria.where("level").is(level));
+            if (StringUtils.isNotBlank(dto.getThreadName()))
+                query.addCriteria(Criteria.where("thread_name").regex(".*?" + dto.getThreadName() + ".*"));
 
-        if (StringUtils.isNotBlank(threadName))
-            query.addCriteria(Criteria.where("thread_name").regex(".*?" + threadName + ".*"));
+            if (StringUtils.isNotBlank(dto.getLogName()))
+                query.addCriteria(Criteria.where("log_name").regex(".*?" + dto.getLogName() + ".*"));
 
-        if (StringUtils.isNotBlank(logName))
-            query.addCriteria(Criteria.where("log_name").regex(".*?" + logName + ".*"));
-
-        if (StringUtils.isNotBlank(message))
-            query.addCriteria(Criteria.where("message").regex(".*?" + message + ".*"));
-
+            if (StringUtils.isNotBlank(dto.getMessage()))
+                query.addCriteria(Criteria.where("message").regex(".*?" + dto.getMessage() + ".*"));
+        }
         return findPagination(page, query);
     }
 

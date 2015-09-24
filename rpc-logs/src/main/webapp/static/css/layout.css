@@ -1,3 +1,59 @@
+.pagingFrom>li>a,.pagingFrom>li>span {
+	color: #000000;
+}
+
+.pagingFrom>li>.paging {
+	color: #428BCA;
+}
+
+.pagingFrom>.paging-input {
+	/* 	color:red; */
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	float: left;
+	line-height: 1.42857;
+	margin-left: -1px;
+	padding: 6px 12px;
+	position: relative;
+	text-decoration: none;
+	border-width: 0px;
+}
+
+.input-mini-s {
+	width: 30px;
+	background-color: transparent;
+	border-color: #000000;
+	border-right: 1px solid #B7D8EE;
+	border-style: solid;
+	border-width: 0 0 1px;
+	color: #0061DE;
+	text-align: center;
+	margin: 0 3px;
+}
+
+
+.table>thead>tr>th {
+	vertical-align: middle;
+}
+
+table tr td, table tr th {
+	text-align: center;
+}
+
+tfoot>tr>td, tfoot>tr>th {
+	text-align: right;
+}
+
+.row-right {
+	float: right;
+	margin-right: 15px;
+}
+
+.row-left {
+	float: left;
+	margin-left: 15px;
+}
+
 .broder1 {
 	border: solid 5px red;
 }
