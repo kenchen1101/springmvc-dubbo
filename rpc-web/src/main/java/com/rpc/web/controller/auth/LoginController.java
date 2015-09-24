@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rpc.auth.dto.UserDto;
 import com.rpc.auth.model.User;
 import com.rpc.common.WebUtil;
-import com.rpc.common.fmt.FormatFactory;
+import com.rpc.util.fmt.FormatFactory;
 import com.rpc.web.validator.UserValidator;
 
 @Controller

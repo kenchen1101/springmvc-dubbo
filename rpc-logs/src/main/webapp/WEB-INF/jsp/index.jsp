@@ -25,15 +25,15 @@
 	<br />
 	<div class="col-sm-offset-1">
 		<div class="row ">
-			<table class="table table-hover table-condensed col-sm-4 broder1">
+			<table class="table table-hover table-condensed broder1">
 				<thead>
 					<tr>
-						<th>项目</th>
-						<th>日期</th>
-						<th>级别</th>
-						<th>线程</th>
-						<th>名称</th>
-						<th>描述</th>
+						<th class="cos-sm-1">项目</th>
+						<th class="cos-sm-1">日期</th>
+						<th class="cos-sm-1">级别</th>
+						<th class="cos-sm-1">线程</th>
+						<th class="cos-sm-1">名称</th>
+						<th class="cos-sm-1">描述</th>
 					</tr>
 				</thead>
 				<tbody id="newsBody">

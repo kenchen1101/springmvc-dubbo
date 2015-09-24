@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import com.rpc.authority.service.xss.XSSHttpRequestWrapper;
 import com.rpc.authority.service.xss.XSSSecurityConfig;
 import com.rpc.authority.service.xss.XSSSecurityManager;
-import com.rpc.common.fmt.FormatFactory;
+import com.rpc.util.fmt.FormatFactory;
 
 /**
  * 

@@ -219,13 +219,6 @@
 
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>spring-maven-snapshot</id>
-			<url>http://repo.springsource.org/libs-snapshot</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<finalName>${artifactId}</finalName>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
