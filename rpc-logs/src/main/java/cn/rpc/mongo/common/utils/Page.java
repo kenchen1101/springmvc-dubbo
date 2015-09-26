@@ -13,6 +13,8 @@ public class Page<T> implements Serializable {
 
     private static final long serialVersionUID = -3223536164570808481L;
 
+    private static final int defaultPageSize = 10;
+
     /** 每页显示记录数(默认为10) */
     private int pageSize;
 
@@ -29,7 +31,7 @@ public class Page<T> implements Serializable {
     private List<T> resultList;
 
     public Page() {
-
+        pageSize = defaultPageSize;
     }
 
     public Page(int currentPage) {
@@ -76,7 +78,7 @@ public class Page<T> implements Serializable {
     }
 
     public int getPageSize() {
-        return pageSize <= 0 ? 10 : pageSize;
+        return pageSize <= 0 ? defaultPageSize : pageSize;
     }
 
     public void setPageSize(int pageSize) {
@@ -105,6 +107,7 @@ public class Page<T> implements Serializable {
 
     public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
+        this.totalPage = totalCount % getPageSize() == 0 ? totalCount / getPageSize() : totalCount / getPageSize() + 1;
     }
 
     public List<T> getResultList() {

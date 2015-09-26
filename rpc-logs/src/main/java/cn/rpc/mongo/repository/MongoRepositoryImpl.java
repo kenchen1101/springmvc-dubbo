@@ -48,7 +48,7 @@ public abstract class MongoRepositoryImpl<T> implements MongoRepository<T> {
     @Override
     public Page<T> findPagination(Page<T> page, Query query) {
         int pageSize = page.getPageSize();
-        page.setTotalCount(this.count());
+        page.setTotalCount(this.count(query));
         query.skip((page.getCurrentPage() - 1) * pageSize).limit(pageSize);
         List<T> rows = this.find(query);
         page.setResultList(rows);
@@ -58,6 +58,11 @@ public abstract class MongoRepositoryImpl<T> implements MongoRepository<T> {
     @Override
     public long count() {
         return mongoTemplate.count(new Query(), getEntityClass());
+    }
+
+    @Override
+    public long count(Query query) {
+        return mongoTemplate.count(query, getEntityClass());
     }
 
     @Override

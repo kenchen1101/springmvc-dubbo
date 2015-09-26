@@ -36,11 +36,12 @@ public class MainController {
     }
 
     @RequestMapping("/query")
-    public Page<BusiLog> page(@ModelAttribute("busiLogDto") BusiLogDto busiLogDto) {
+    public String page(@ModelAttribute("busiLogDto") BusiLogDto busiLogDto , Model model) {
         log.warn("## rpc-logs index page.");
         Page<BusiLog> page = new Page<BusiLog>(busiLogDto.getCurrentPage());
         page = rpcLogService.findBusiLogByPage(page, busiLogDto);
-        return page;
+        model.addAttribute("page", page);
+        return "index";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)

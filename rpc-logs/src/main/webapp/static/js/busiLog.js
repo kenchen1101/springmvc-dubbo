@@ -31,24 +31,24 @@
     var flag = true;
     var $msg = $("<div title='警告'></div>");
     var shopId = $("#shopId option:selected").val();
-    if (!ToolsUtil.validationText(shopId)) {
+    if (!j_util.validationText(shopId)) {
 
       // 判断是否选择QA
       var qaUserId = $("#qaUserId option:selected").val();
-      if (!ToolsUtil.validationText(qaUserId)) {
+      if (!j_util.validationText(qaUserId)) {
         flag = false;
         $msg.append($("<p class='text-danger'>请选择店铺。</p>"));
       }
     }
 
     var beginTime = $("#beginTime").val();
-    if (!ToolsUtil.validationText(beginTime)) {
+    if (!j_util.validationText(beginTime)) {
       flag = false;
       $msg.append($("<p class='text-danger'>请选择开始时间。</p>"));
     }
 
     var endTime = $("#endTime").val();
-    if (!ToolsUtil.validationText(endTime)) {
+    if (!j_util.validationText(endTime)) {
       flag = false;
       $msg.append($("<p class='text-danger'>请选择结束时间 。</p>"));
     }
@@ -64,19 +64,16 @@
 
   // 查询考评
   j_search.search = function() {
-
-    $("#searchEvaluateBtn").click(function(event) {
-      if (j_search.checkAll()) {
-        $(this).prop("disabled", "disabled");
-        $("#searchForm").submit();
-      }
-    });
+    if (j_search.checkAll()) {
+      $(this).prop("disabled", "disabled");
+      $("#searchForm").submit();
+    }
   };
 
   $(function() {
     j_search.bindDate();
-    j_search.search();
-    ToolsUtil.queryPaging();
+    //j_search.search();
+    j_util.queryPaging();
   });
 
 })(jQuery, window);

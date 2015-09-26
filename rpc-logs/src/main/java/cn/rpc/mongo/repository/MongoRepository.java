@@ -24,6 +24,8 @@ public interface MongoRepository<T> {
 
     public long count();
 
+    public long count(Query query);
+
     public void updateEntity(Object entity);
 
     public void removeOne(String id);

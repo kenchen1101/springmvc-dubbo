@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -12,7 +13,8 @@
 <script src="${ctx}/static/jquery/ui/jquery.ui.dialog.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/jquery/ui/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/jquery/ui/i18n/jquery.ui.datepicker-zh-CN.min.js" type="text/javascript"></script>
-<script src="${ctx}/static/js/search.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/common.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/busiLog.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -58,7 +60,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="17"><form:form action="${ctx }/evaluate/search.htm" commandName="searchCommand" cssClass="form-horizontal" id="pagingFrom" method="POST">
+						<td colspan="6"><form:form action="${ctx }/query" commandName="busiLogDto" cssClass="form-horizontal" id="busiLogDto" method="POST">
 								<ul class="pagingFrom pagination">
 									<%-- 									<input type="hidden" value="${shopId }" name="shopId" /> --%>
 									<%-- 									<input type="hidden" value="${searchCommand.evaluate }" name="evaluate" /> --%>
@@ -66,9 +68,9 @@
 									<%-- 									<input type="hidden" value="<fmt:formatDate value="${searchCommand.beginTime }" pattern="yyyy-MM-dd" />" name="beginTime" /> --%>
 									<%-- 									<input type="hidden" value="<fmt:formatDate value="${searchCommand.endTime }" pattern="yyyy-MM-dd" />" name="endTime" /> --%>
 
-									<!-- 									<input type="hidden" value="1" id="pIndex" name="pageIndex" /> -->
-									<%-- 									<input type="hidden" value="${page.totalPage }" id="totalPage" /> --%>
-									<input type="hidden" value="${page.currentPage }" id="currentPageIndex" />
+									<input type="hidden" value="1" id="pIndex" name="currentPage" />
+									<input type="hidden" value="${page.totalPage }" id="totalPage" />
+									<input type="hidden" value="${page.currentPage }" id="currentcurrentPage" />
 									<li><span>共${page.totalPage }页 , 当前第${page.currentPage }页&nbsp;&nbsp;</span></li>
 
 									<c:if test="${page.currentPage == 1 }">
@@ -77,8 +79,8 @@
 									</c:if>
 
 									<c:if test="${page.currentPage > 1 }">
-										<li><span class="paging" data-pageIndex="1">首页 </span></li>
-										<li><span class="paging" data-pageIndex="${page.currentPage - 1 }"> 上一页 </span></li>
+										<li><span class="paging" data-currentPage="1">首页 </span></li>
+										<li><span class="paging" data-currentPage="${page.currentPage - 1 }"> 上一页 </span></li>
 									</c:if>
 
 									<c:if test="${page.currentPage == page.totalPage }">
@@ -87,8 +89,8 @@
 									</c:if>
 
 									<c:if test="${page.currentPage < page.totalPage }">
-										<li><span class="paging" data-pageIndex="${page.currentPage + 1 }"> 下一页 </span></li>
-										<li><span class="paging" data-pageIndex="${page.totalPage }"> 尾页 </span></li>
+										<li><span class="paging" data-currentPage="${page.currentPage + 1 }"> 下一页 </span></li>
+										<li><span class="paging" data-currentPage="${page.totalPage }"> 尾页 </span></li>
 									</c:if>
 								</ul>
 								<ul class="pagingFrom pagination">
