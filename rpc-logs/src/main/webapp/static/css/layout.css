@@ -1,4 +1,4 @@
-.pagingFrom>li>a,.pagingFrom>li>span {
+.pagingFrom>li>a, .pagingFrom>li>span {
 	color: #000000;
 }
 
@@ -31,7 +31,6 @@
 	margin: 0 3px;
 }
 
-
 .table>thead>tr>th {
 	vertical-align: middle;
 }
@@ -56,4 +55,8 @@ tfoot>tr>td, tfoot>tr>th {
 
 .broder1 {
 	border: solid 5px red;
+}
+
+.padding-left {
+	padding-left: 10px;
 }

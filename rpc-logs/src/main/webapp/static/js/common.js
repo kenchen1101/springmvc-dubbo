@@ -3,55 +3,6 @@
 
   var j_util = window.j_util = {};
 
-  j_util.queryPaging = function() {
-
-    $(".paging").click(function(event) {
-      // get Parameter
-      var totalPage = j_util.parseInt($("#totalPage").val());
-      var index = j_util.parseInt($("#currentcurrentPage").val());
-
-      var currentPage = 1;
-
-      // 当前页==最大页，不能跳转
-      // 第一页时，不能向上一页
-
-      if ($(this).hasClass("pagingIndex")) {
-        // 指定页面跳转
-        currentPage = j_util.parseInt($("#pagingIndex").val());
-        if (currentPage >= 1 && currentPage <= totalPage) {
-          $("#pIndex").val(currentPage);
-          $("#busiLogDto").submit();
-        } else {
-          alert("请输入合法有效的页码。");
-          return false;
-        }
-      } else {
-
-        currentPage = j_util.parseInt($(this).attr("data-currentPage"));
-
-        if (index == totalPage && currentPage == totalPage) {
-          // 若当前页为最后一页，则不能“下一页”
-          return false;
-        }
-        if (index == currentPage && index == 1) {
-          // 当前为第一页，不能再“上一页”
-          return false;
-        }
-
-        // 不合法
-        if (currentPage > totalPage) { return false; }
-
-        if (currentPage <= totalPage && currentPage >= 1) {
-          $("#pIndex").val(currentPage);
-          $("#busiLogDto").submit();
-        }
-
-      }
-
-    });
-
-  };
-
   // 校验文本框内容是否为空,处理空格情况,检验通过=true,检验没通过=false
   j_util.validationText = function(text) {
     if ($.trim(text) == null || $.trim(text) == "") {

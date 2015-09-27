@@ -3,28 +3,7 @@
 
   var j_search = {};
 
-  j_search.bindDate = function() {
 
-    $("#beginTime").datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 1,
-      onClose: function(selectedDate) {
-        $("#endTime").datepicker("option", "minDate", selectedDate);
-      }
-    });
-
-    $("#endTime").datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 1,
-      onClose: function(selectedDate) {
-        $("#beginTime").datepicker("option", "maxDate", selectedDate);
-      }
-
-    });
-
-  };
 
   // 检查
   j_search.checkAll = function() {
@@ -71,9 +50,10 @@
   };
 
   $(function() {
-    j_search.bindDate();
-    //j_search.search();
-    j_util.queryPaging();
+
+    $("#queryButton").click(function() {
+      jpage.ajaxPage('queryForm', 'busiLogBlock');
+    });
   });
 
 })(jQuery, window);
