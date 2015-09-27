@@ -60,3 +60,17 @@ tfoot>tr>td, tfoot>tr>th {
 .padding-left {
 	padding-left: 10px;
 }
+
+.mytable {
+	table-layout: fixed;
+	margin: 0px;
+}
+
+.mytable tr td {
+	text-overflow: ellipsis; /* for IE */
+	-moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+	overflow: hidden;
+	white-space: nowrap;
+	width:50px;
+	text-align: left
+}
