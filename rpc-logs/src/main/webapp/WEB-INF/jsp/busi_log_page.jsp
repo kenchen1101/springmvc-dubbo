@@ -2,33 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<div class="row">
-	<div class="table-responsive">
-		<table class="table table-bordered table-hover table-condensed mytable">
-			<thead>
+<div class="table-responsive">
+	<table id="busiLogTable" class="table table-bordered table-hover table-condensed mytable">
+		<thead>
+			<tr>
+				<th width="6%" class="info">项目</th>
+				<th width="13%" class="info">日期</th>
+				<th width="4%" class="info">级别</th>
+				<th width="6%" class="info">线程</th>
+				<th class="info">名称</th>
+				<th class="info">描述</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="log" items="${page.resultList}">
 				<tr>
-					<th width="20px;" align="left">项目</th>
-					<th width="40px;" align="left">日期</th>
-					<th width="10px;" align="left">级别</th>
-					<th width="20px;" align="left">线程</th>
-					<th width="50px;" align="left">名称</th>
-					<th width="300px;" align="left">描述</th>
+					<td>${log.systemName }</td>
+					<td><fmt:formatDate value="${log.createTime }" pattern="yy/MM/dd HH:mm:ss.SSS" /></td>
+					<td>${log.level }</td>
+					<td>${log.threadName }</td>
+					<td>${log.logName }</td>
+					<td>${log.message }</td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="log" items="${page.resultList}">
-					<tr>
-						<td>${log.systemName }</td>
-						<td><fmt:formatDate value="${log.createTime }" pattern="yy/MM/dd HH:mm:ss.SSS" /></td>
-						<td>${log.level }</td>
-						<td>${log.threadName }</td>
-						<td>${log.logName }</td>
-						<td>${log.message }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+			</c:forEach>
+		</tbody>
+	</table>
 </div>
 <div class="row">
 	<div class="blockquote-reverse">

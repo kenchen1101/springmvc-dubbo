@@ -1,3 +1,7 @@
+.col-sm-offset-0 {
+    margin-left: 2%;
+}
+
 .pagingFrom>li>a, .pagingFrom>li>span {
 	color: #000000;
 }
@@ -57,8 +61,12 @@ tfoot>tr>td, tfoot>tr>th {
 	border: solid 5px red;
 }
 
-.padding-left {
-	padding-left: 10px;
+.margin-left {
+	margin-left: 10px;
+}
+
+.margin-left1 {
+	margin-left: 5%;
 }
 
 .mytable {
@@ -67,10 +75,10 @@ tfoot>tr>td, tfoot>tr>th {
 }
 
 .mytable tr td {
-	text-overflow: ellipsis; /* for IE */
-	-moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+	text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
-	width:50px;
+	width: 50px;
 	text-align: left
 }
