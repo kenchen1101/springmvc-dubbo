@@ -17,12 +17,12 @@
 		<tbody>
 			<c:forEach var="log" items="${page.resultList}">
 				<tr>
-					<td>${log.systemName }</td>
+					<td class="busilog_qtip" title="${log.systemName }">${log.systemName }</td>
 					<td><fmt:formatDate value="${log.createTime }" pattern="yy/MM/dd HH:mm:ss.SSS" /></td>
 					<td>${log.level }</td>
-					<td>${log.threadName }</td>
-					<td>${log.logName }</td>
-					<td>${log.message }</td>
+					<td class="busilog_qtip" title="${log.threadName }">${log.threadName }</td>
+					<td class="busilog_qtip" title="${log.logName }">${log.logName }</td>
+					<td class="busilog_qtip" title="${log.message }">${log.message }</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -46,6 +46,16 @@
 <script type="text/javascript">
   $(function() {
     jpage.queryPage('busiLogDto', 'busiLogBlock');
+
+    $('.busilog_qtip').qtip({
+      position: {
+        my: 'bottom left',
+        at: 'top left'
+      },
+      style: {
+        classes: 'qtip-blue qtip-rounded qtip-light'
+      }
+    });
   });
 </script>
 

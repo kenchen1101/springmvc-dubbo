@@ -11,11 +11,13 @@
 <title>后台</title>
 <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/bootstrap/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
+<link href="${ctx}/static/jquery/plugins/css/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/jquery/plugins/css/jquery.scrollToTop.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/css/layout.css" type="text/css" rel="stylesheet" />
 
 <script src="${ctx}/static/jquery/jquery-1.9.1.js" type="text/javascript"></script>
 <script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/jquery/plugins/js/jquery.qtip.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 <script src="${ctx}/static/jquery/plugins/js/jquery.scrollToTop.js" type="text/javascript"></script>
 <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
