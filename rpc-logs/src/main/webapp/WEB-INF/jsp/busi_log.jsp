@@ -3,12 +3,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<meta http-equiv="pragma " content="no-cache">
+<meta http-equiv="Cache-Control " content="no-cache,must-revalidate"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="icon" href="${ctx}/static/images/favicon.ico">
-<title>后台</title>
+<title>应用系统日志查询</title>
 <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/bootstrap/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/jquery/plugins/css/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
@@ -81,6 +83,7 @@
 						</div>
 						<div class="form-group margin-left1">
 							<button type="button" class="btn btn-default" id="queryButton">查询</button>
+							<button type="button" class="btn btn-default" id="queryAndDownload">查询并导出</button>
 						</div>
 					</div>
 				</form>

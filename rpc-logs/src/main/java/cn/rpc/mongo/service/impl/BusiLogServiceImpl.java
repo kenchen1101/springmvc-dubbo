@@ -2,6 +2,7 @@ package cn.rpc.mongo.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import cn.rpc.mongo.common.utils.Page;
+import cn.rpc.mongo.common.utils.date.DateUtil;
 import cn.rpc.mongo.dto.BusiLogDto;
+import cn.rpc.mongo.dto.DownloadBusiLogDto;
 import cn.rpc.mongo.entity.BusiLog;
 import cn.rpc.mongo.repository.MongoRepositoryImpl;
 import cn.rpc.mongo.service.BusiLogService;
@@ -42,6 +45,31 @@ public class BusiLogServiceImpl extends MongoRepositoryImpl<BusiLog> implements 
 
     @Override
     public Page<BusiLog> findBusiLogByPage(Page<BusiLog> page, BusiLogDto dto) {
+        return findPagination(page, getQuery(dto));
+    }
+
+    @Override
+    public DownloadBusiLogDto getBytes(BusiLogDto busiLogDto) {
+        List<BusiLog> bls = find(getQuery(busiLogDto));
+        StringBuilder csv = new StringBuilder("");
+        if (CollectionUtils.isNotEmpty(bls)) {
+            for (BusiLog bl : bls) {
+                csv.append(bl.getId() + "\t,\t");
+                csv.append(bl.getSystemName() + "\t,\t");
+                csv.append(DateUtil.dateToString(bl.getCreateTime(), DateUtil.fm_yyyy_MM_dd_HHmmssSSS) + "\t,\t");
+                csv.append(bl.getLevel() + "\t,\t");
+                csv.append(bl.getThreadName() + "\t,\t");
+                csv.append(bl.getLogName() + "\t,\t");
+                csv.append(bl.getMessage() + "\t\r\n");
+            }
+        }
+        DownloadBusiLogDto dto = new DownloadBusiLogDto();
+        dto.setBytes(csv.toString().getBytes());
+        dto.setFileName("共导出" + bls.size() + "条.csv");
+        return dto;
+    }
+
+    private Query getQuery(BusiLogDto dto) {
         Query query = new Query();
         if (dto != null) {
             if (null != dto.getBeginTime() && null != dto.getEndTime())
@@ -62,7 +90,7 @@ public class BusiLogServiceImpl extends MongoRepositoryImpl<BusiLog> implements 
             if (StringUtils.isNotBlank(dto.getMessage()))
                 query.addCriteria(Criteria.where("message").regex(".*?" + dto.getMessage() + ".*"));
         }
-        return findPagination(page, query);
+        return query;
     }
 
 }

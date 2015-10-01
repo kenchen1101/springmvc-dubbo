@@ -38,6 +38,11 @@ public class Page<T> implements Serializable {
         this.currentPage = currentPage;
     }
 
+    public Page(int currentPage, int pageSize) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+    }
+
     /**
      * 计算总页数
      * 

@@ -30,19 +30,22 @@
 </div>
 <div class="row">
 	<div class="blockquote-reverse">
-		<form:form action="${ctx }/query" id="busiLogDto">
+		<form:form action="${ctx }/query" id="busiLogDto" >
 			<!-- 查询条件，用隐藏表单域 -->
-			<input type="hidden" value="${busiLog.systemName }" name="systemName" />
-			<input type="hidden" value="<fmt:formatDate value="${busiLog.beginTime }" pattern="yyyy-MM-dd HH:mm:ss" />" name="beginTime" />
-			<input type="hidden" value="<fmt:formatDate value="${busiLog.endTime }" pattern="yyyy-MM-dd HH:mm:ss" />" name="endTime" />
-			<input type="hidden" value="${busiLog.level }" name="level" />
-			<input type="hidden" value="${busiLog.threadName }" name="threadName" />
-			<input type="hidden" value="${busiLog.logName }" name="logName" />
-			<input type="hidden" value="${busiLog.message }" name="message" />
+			<input type="hidden" class="pageForm" value="${busiLog.systemName }" name="systemName" />
+			<input type="hidden" class="pageForm" value="<fmt:formatDate value="${busiLog.beginTime }" pattern="yyyy-MM-dd HH:mm:ss" />" name="beginTime" />
+			<input type="hidden" class="pageForm" value="<fmt:formatDate value="${busiLog.endTime }" pattern="yyyy-MM-dd HH:mm:ss" />" name="endTime" />
+			<input type="hidden" class="pageForm" value="${busiLog.level }" name="level" />
+			<input type="hidden" class="pageForm" value="${busiLog.threadName }" name="threadName" />
+			<input type="hidden" class="pageForm" value="${busiLog.logName }" name="logName" />
+			<input type="hidden" class="pageForm" value="${busiLog.message }" name="message" />
 			<%@ include file="/WEB-INF/jsp/common/page.jsp"%>
 		</form:form>
 	</div>
 </div>
+<form id="downloadCurrentPage" name="downloadCurrentPage" class="hide" method="post" action="${ctx }/download/currentPage" target="dodownloadFormnloadFrom"></form>
+<form id="downloadAll" name="downloadAll" class="hide" method="post" action="${ctx }/download/all" target="dodownloadFormnloadFrom"></form>
+<iframe name="downloadForm" style="display: none;"></iframe>
 <script type="text/javascript">
   $(function() {
     jpage.queryPage('busiLogDto', 'busiLogBlock');
@@ -53,9 +56,17 @@
         at: 'top left'
       },
       style: {
-        classes: 'qtip-blue qtip-rounded qtip-light'
+        classes: 'qtip-dark qtip-rounded',
       }
     });
+
+    $(".exportCurrentPageData").click(function(event) {
+      event.stopPropagation();
+      $("#downloadCurrentPage").empty();
+      $("#downloadCurrentPage").html($("#busiLogDto").html());
+      $("#downloadCurrentPage").submit();
+    })
+
   });
 </script>
 

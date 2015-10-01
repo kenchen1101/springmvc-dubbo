@@ -14,6 +14,8 @@ public class BusiLogDto extends BusiLog {
 
     private Integer currentPage;
 
+    private Integer pageSize;
+
     public Date getBeginTime() {
         return beginTime;
     }
@@ -36,6 +38,14 @@ public class BusiLogDto extends BusiLog {
 
     public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public Integer getPageSize() {
+        return pageSize == null ? 10 : pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
 }

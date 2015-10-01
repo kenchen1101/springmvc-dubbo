@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.rpc.mongo.common.utils.Page;
 import cn.rpc.mongo.dto.BusiLogDto;
+import cn.rpc.mongo.dto.DownloadBusiLogDto;
 import cn.rpc.mongo.entity.BusiLog;
 
 /**
@@ -22,7 +23,7 @@ public interface BusiLogService {
     public BusiLog findBusiLogById(String id);
 
     /**
-     * 查询日志
+     * 根据条件分页查询日志
      * 
      * @param page
      *            分页对象
@@ -38,5 +39,13 @@ public interface BusiLogService {
      * @return
      */
     public List<BusiLog> findBusiLogAll();
+
+    /***
+     * 根据条件查询日志，并生成byte[]
+     * 
+     * @param busiLogDto
+     * @return
+     */
+    public DownloadBusiLogDto getBytes(BusiLogDto busiLogDto);
 
 }

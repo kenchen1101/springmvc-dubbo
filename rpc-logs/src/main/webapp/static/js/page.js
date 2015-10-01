@@ -26,8 +26,8 @@
     $(".paging").click(function(event) {
 
       // get Parameter
-      var totalPage = j_util.parseInt($("#totalPage").val());
-      var index = j_util.parseInt($("#curPage").val());
+      var totalPage = j_util.parseInt($("#" + formId + " input[name='totalPage']").val());
+      var index = j_util.parseInt($("#" + formId + " input[name='curPage']").val());
 
       var currentPage = 1;
 
@@ -36,13 +36,14 @@
 
       if ($(this).hasClass("pagingIndex")) {
         // 指定页面跳转
-        currentPage = j_util.parseInt($("#pagingIndex").val());
+        currentPage = j_util.parseInt($("#" + formId + " input[name='pagingIndex']").val());
         if (currentPage >= 1 && currentPage <= totalPage) {
-          $("#pIndex").val(currentPage);
+          $("#" + formId + " input[name='pIndex']").val(currentPage);
           // $("#" + formId).submit();
           jpage.ajaxPage(formId, tbodyId);
         } else {
           alert("请输入合法有效的页码");
+          $("#" + formId + " input[name='pagingIndex']").val("");
           return false;
         }
       } else {
@@ -61,13 +62,18 @@
         if (currentPage > totalPage) { return false; }
 
         if (currentPage <= totalPage && currentPage >= 1) {
-          $("#pIndex").val(currentPage);
+          $("#" + formId + " input[name='currentPage']").val(currentPage);
           // $("#" + formId).submit();
           jpage.ajaxPage(formId, tbodyId);
         }
 
       }
 
+    });
+
+    $(".selectPageSize").change(function() {
+      $("#" + formId + " input[name='currentPage']").val($(this).attr("data-currentPage"));
+      jpage.ajaxPage(formId, tbodyId);
     });
 
   };
