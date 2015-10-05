@@ -19,6 +19,9 @@ public class Role extends BaseModel {
     /** 父角色ID **/
     private String parentId;
 
+    /** 所属业务系统 **/
+    private String businessSystem;
+
     /** 备注 **/
     private String remark;
 
@@ -44,6 +47,14 @@ public class Role extends BaseModel {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getBusinessSystem() {
+        return businessSystem;
+    }
+
+    public void setBusinessSystem(String businessSystem) {
+        this.businessSystem = businessSystem;
     }
 
     public String getRemark() {

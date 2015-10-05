@@ -51,9 +51,8 @@
 	</appender>
 
 	<logger name="com.rpc" level="debug" />
-	<logger name="org.apache" level="info" />
-	<logger name="org.apache.zookeeper" level="info" />
-	<logger name="org.springframework" level="info" />
+	<logger name="org.apache" level="error" />
+	<logger name="org.springframework" level="error" />
 	<logger name="com.alibaba" level="info" />
 
 	<logger name="com.netflix" level="info" />

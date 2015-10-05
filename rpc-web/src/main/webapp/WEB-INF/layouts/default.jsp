@@ -50,7 +50,7 @@
 									<li class="dropdown-submenu"><a tabindex="0">${two.menuName }</a>
 										<ul class="dropdown-menu">
 											<c:forEach items="${two.children }" var="three">
-												<li><a tabindex="0">${three.menuName }</a></li>
+												<li><a tabindex="0" href="${three.url }">${three.menuName }</a></li>
 											</c:forEach>
 										</ul></li>
 								</c:forEach>

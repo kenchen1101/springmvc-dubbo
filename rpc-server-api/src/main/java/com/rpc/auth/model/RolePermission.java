@@ -15,6 +15,9 @@ public class RolePermission extends BaseModel {
     /** 菜单ID **/
     private String permissionId;
 
+    /** 所属业务系统 **/
+    private String businessSystem;
+
     public String getRoleId() {
         return roleId;
     }
@@ -29,6 +32,14 @@ public class RolePermission extends BaseModel {
 
     public void setPermissionId(String permissionId) {
         this.permissionId = permissionId;
+    }
+
+    public String getBusinessSystem() {
+        return businessSystem;
+    }
+
+    public void setBusinessSystem(String businessSystem) {
+        this.businessSystem = businessSystem;
     }
 
 }

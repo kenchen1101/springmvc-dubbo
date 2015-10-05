@@ -24,7 +24,7 @@ import com.rpc.framework.key.GeneratePrimaryKey;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-dao-datasource.xml", "classpath*:spring/applicationContext-dao-transaction.xml", "classpath*:spring/applicationContext-dubbo.xml",
-    "classpath*:spring/applicationContext-mybatis.xml",  "classpath*:spring/applicationContext.xml", "classpath*:spring/service/applicationContext-*.xml" })
+    "classpath*:spring/applicationContext-mybatis.xml", "classpath*:spring/applicationContext.xml", "classpath*:spring/service/applicationContext-*.xml" })
 @ActiveProfiles("development")
 public class InitServiceTest {
 
@@ -81,27 +81,27 @@ public class InitServiceTest {
             authService.addPermission(a);
 
             Permission aa = newPermission("角色", a.getId(), null, 2, 2);
-            aa.setMenuCode(a.getId() + aa.getId());
+            aa.setMenuCode(a.getMenuCode() + aa.getId());
             authService.addPermission(aa);
 
             Permission ab = newPermission("用户", a.getId(), null, 2, 3);
-            ab.setMenuCode(a.getId() + ab.getId());
+            ab.setMenuCode(a.getMenuCode() + ab.getId());
             authService.addPermission(ab);
 
             Permission ac = newPermission("菜单", a.getId(), null, 2, 4);
-            ac.setMenuCode(a.getId() + ac.getId());
+            ac.setMenuCode(a.getMenuCode() + ac.getId());
             authService.addPermission(ac);
 
             Permission aaa = newPermission("角色管理", aa.getId(), "role/manager", 3, 5);
-            aaa.setMenuCode(aa.getParentId() + aaa.getId());
+            aaa.setMenuCode(aa.getMenuCode() + aaa.getId());
             authService.addPermission(aaa);
 
             Permission aba = newPermission("用户管理", ab.getId(), "user/manager", 3, 6);
-            aba.setMenuCode(ab.getParentId() + aba.getId());
+            aba.setMenuCode(ab.getMenuCode() + aba.getId());
             authService.addPermission(aba);
 
             Permission aca = newPermission("菜单管理", ac.getId(), "menu/manager", 3, 7);
-            aca.setMenuCode(ac.getParentId() + aca.getId());
+            aca.setMenuCode(ac.getMenuCode() + aca.getId());
             authService.addPermission(aca);
         } catch (Exception e) {
             e.printStackTrace();
