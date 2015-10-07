@@ -1,4 +1,4 @@
-package com.ray.auth.service;
+package com.rpc.auth.service;
 
 import java.util.Date;
 import java.util.HashMap;
