@@ -11,7 +11,7 @@
 		<project.build.jdkVersion>1.7</project.build.jdkVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<org.springframework.version>4.2.0.RELEASE</org.springframework.version>
+		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
 	</properties>
 
 	<dependencies>
