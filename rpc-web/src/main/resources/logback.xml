@@ -8,16 +8,14 @@
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{36} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
 
 	<appender name="mongo" class="com.rpc.logback.MongoDbAppender">
-		<mongoServerAddress>
-			<address>${mongo.server.address}</address>
-			<port>${mongo.server.port}</port>
-		</mongoServerAddress>
+		<host>${mongo.server.address}</host>
+		<port>${mongo.server.port}</port>
 		<system>${system_name}</system>
 		<database>${mongo.database}</database>
 		<collection>${mongo.collection}</collection>
@@ -29,7 +27,7 @@
 			<MaxHistory>1</MaxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{36} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
@@ -45,7 +43,7 @@
 			<MaxHistory>1</MaxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{15} - %msg %n</pattern>
+			<pattern>[${system_name}] %d{yy/MM/dd HH:mm:ss.SSS} %-5level %line %logger{36} - %msg %n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
@@ -57,6 +55,10 @@
 
 	<logger name="com.netflix" level="info" />
 	<logger name="redis.clients" level="info" />
+
+	<!-- 因为开始日志输出到mongo ， 所以它走error级别 -->
+	<logger name="org.mongodb" level="error" />
+	<logger name="com.mongodb" level="error" />
 
 	<!-- 日志级别：trace < debug < info < warn < error -->
 	<root level="info">

@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.rpc.framework.key.model.Key;
 import com.rpc.framework.key.service.KeyService;
-import com.rpc.util.fmt.FormatFactory;
 
 /**
  * 
@@ -61,7 +61,7 @@ public class GeneratePrimaryKey {
 
         if (log.isDebugEnabled()) {
             log.debug("## 机器码={}", machineCode);
-            log.debug("## tables={}", FormatFactory.objectToJson(tables));
+            log.debug("## tables={}", JSON.toJSONString(tables));
         }
 
         for (Key k : tables) {

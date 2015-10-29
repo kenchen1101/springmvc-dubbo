@@ -1,37 +1,45 @@
 package com.rpc.logback;
 
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import ch.qos.logback.core.status.ErrorStatus;
 
+/**
+ * logback 日志工具类，输出到mongodb
+ */
 public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
 
-    // 项目名
+    // System name
     private String system;
 
-    // 数据库
+    // db name
     private String database;
 
     // mongo collection
     private String collection;
 
-    private List<MongoServerAddress> servers = new ArrayList<MongoServerAddress>();
+    // mongo host
+    private String host;
+
+    // mongo port
+    private String port;
 
     private Mongo mongo;
 
-    private DBCollection dbCol;
+    private MongoCollection<BasicDBObject> dbCol;
 
     @Override
     protected void append(E event) {
@@ -42,7 +50,7 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
         doc.put("thread_name", event.getThreadName());
         doc.put("log_name", event.getLoggerName());
         doc.put("message", event.getFormattedMessage());
-        dbCol.insert(doc);
+        dbCol.insertOne(doc);
     }
 
     private String logLevel(Level level) {
@@ -64,10 +72,9 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
 
     @Override
     public void start() {
+
         boolean noErrors = true;
-        // Make sure we have all required configuration info
-        // has been provided.
-        if (servers.isEmpty()) {
+        if (StringUtils.isBlank(host) || StringUtils.isBlank(port)) {
             addStatus(new ErrorStatus("No MongoServerAddress values provided", this));
             noErrors = false;
         }
@@ -75,44 +82,22 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
             addStatus(new ErrorStatus("No database name provided", this));
             noErrors = false;
         }
-        if (collection == null) {
+        if (collection == null)
             addStatus(new ErrorStatus("No collection name provided", this));
-        }
 
-        // Make sure all configuration values have been
-        // provided for the MongoDB servers we're going
-        // to try to connect to.
         if (noErrors) {
-            for (MongoServerAddress server : servers) {
-                if (!server.isValid()) {
-                    addStatus(new ErrorStatus("MongoServerAddress was not valid. " + "address=" + server.getAddress() + ", port=" + server.getPort(), this));
-                    noErrors = false;
-                }
+            List<ServerAddress> addresses = new ArrayList<ServerAddress>();
+            try {
+                addresses.add(new ServerAddress(host, Integer.parseInt(port)));
+            } catch (Exception e) {
+                noErrors = false;
+                addStatus(new ErrorStatus("Error connecting to server. " + "address=" + host + ", port=" + port, this, e));
             }
-        }
-
-        // Convert the configured server addresses into
-        // values that can be used to create the connection
-        // to the MongoDB servers.
-        if (noErrors) {
-            List<ServerAddress> addresses = new ArrayList<ServerAddress>(servers.size());
-            for (MongoServerAddress server : servers) {
-                try {
-                    addresses.add(new ServerAddress(server.getAddress(), server.getPort()));
-                } catch (UnknownHostException e) {
-                    noErrors = false;
-                    addStatus(new ErrorStatus("Error connecting to server. " + "address=" + server.getAddress() + ", port=" + server.getPort(), this, e));
-                }
-            }
-
-            // OK so far so create the connection.
             if (noErrors) {
-                mongo = new Mongo(addresses);
-                dbCol = mongo.getDB(database).getCollection(collection);
+                dbCol = new MongoClient(host, Integer.parseInt(port)).getDatabase(database).getCollection(collection, BasicDBObject.class);
                 super.start();
             }
         }
-
     }
 
     @Override
@@ -127,8 +112,16 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
         this.system = system;
     }
 
-    public void addMongoServerAddress(MongoServerAddress address) {
-        servers.add(address);
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public void setMongo(Mongo mongo) {
+        this.mongo = mongo;
     }
 
     public void setDatabase(String database) {

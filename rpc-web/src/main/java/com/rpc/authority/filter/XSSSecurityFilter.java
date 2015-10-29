@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.rpc.authority.service.xss.XSSHttpRequestWrapper;
 import com.rpc.authority.service.xss.XSSSecurityConfig;
 import com.rpc.authority.service.xss.XSSSecurityManager;
-import com.rpc.util.fmt.FormatFactory;
 
 /**
  * 
@@ -74,7 +74,7 @@ public class XSSSecurityFilter implements Filter {
                     }
                 }
                 if (log.isDebugEnabled()) {
-                    log.debug("##　XSS Security Filter RequestURL={} , param={} , RequestParameter={}", new Object[] { httpRequest.getRequestURL().toString(), paramStr, FormatFactory.objectToJson(httpRequest.getParameterMap()) });
+                    log.debug("##　XSS Security Filter RequestURL={} , param={} , RequestParameter={}", new Object[] { httpRequest.getRequestURL().toString(), paramStr, JSON.toJSONString(httpRequest.getParameterMap()) });
                 }
             }
             // 是否中断操作

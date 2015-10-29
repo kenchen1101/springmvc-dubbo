@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.fastjson.JSON;
 import com.rpc.auth.dto.UserDto;
 import com.rpc.auth.model.User;
 import com.rpc.common.WebUtil;
-import com.rpc.util.fmt.FormatFactory;
 import com.rpc.web.validator.UserValidator;
 
 @Controller
@@ -36,7 +36,7 @@ public class LoginController {
         User user = WebUtil.getUser();
         if (user.getIsDel() != 0) {
             result.reject("user.lock.error");
-            log.error("## v  , {}", FormatFactory.objectToJson(result.getAllErrors()));
+            log.error("## v  , {}", JSON.toJSONString(result.getAllErrors()));
             subject.logout();
             return "login";
         }
@@ -53,7 +53,7 @@ public class LoginController {
 
         if (!subject.isAuthenticated()) {
             result.reject("user.login.error");
-            log.error("## 登录失败  , {}", FormatFactory.objectToJson(result.getAllErrors()));
+            log.error("## 登录失败  , {}", JSON.toJSONString(result.getAllErrors()));
             return "login";
         }
 
@@ -61,7 +61,7 @@ public class LoginController {
         User user = WebUtil.getUser();
         if (user.getIsDel() != 0) {
             result.reject("user.lock.error");
-            log.error("## 用户已经失效，无法登录  , {}", FormatFactory.objectToJson(result.getAllErrors()));
+            log.error("## 用户已经失效，无法登录  , {}", JSON.toJSONString(result.getAllErrors()));
             subject.logout();
             return "login";
         }

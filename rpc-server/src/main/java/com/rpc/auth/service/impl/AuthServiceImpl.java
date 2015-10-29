@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.rpc.auth.mapper.PermissionMapper;
 import com.rpc.auth.mapper.RoleMapper;
 import com.rpc.auth.mapper.RolePermissionMapper;
@@ -27,7 +28,6 @@ import com.rpc.common.exception.BusinessException;
 import com.rpc.framework.base.Page;
 import com.rpc.framework.key.GeneratePrimaryKey;
 import com.rpc.util.DateUtil;
-import com.rpc.util.fmt.FormatFactory;
 
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
     public Page<User> paginateUser(Page<User> page) {
         List<User> users = userMapper.paginateUserPage(page);
         if (log.isDebugEnabled()) {
-            log.debug("{}", FormatFactory.objectToJson(users));
+            log.debug("{}", JSON.toJSONString(users));
         }
         page.setResultList(users);
         return page;
