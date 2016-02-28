@@ -56,10 +56,10 @@
 	<logger name="com.netflix" level="info" />
 	<logger name="redis.clients" level="info" />
 	<logger name="org.mybatis" level="error" />
-	
+
 	<!-- 因为开始日志输出到mongo ， 所以它走error级别 -->
-	<logger name="org.mongodb" level="error" />
-	<logger name="com.mongodb" level="error" />
+	<!-- <logger name="org.mongodb" level="error" /> -->
+	<!-- <logger name="com.mongodb" level="error" /> -->
 
 	<logger name="org.apache.ibatis.jdbc.ScriptRunner" level="debug" />
 	<logger name="java.sql.Connection" level="debug" />

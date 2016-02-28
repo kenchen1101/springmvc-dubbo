@@ -11,7 +11,7 @@
 		<project.build.jdkVersion>1.7</project.build.jdkVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>

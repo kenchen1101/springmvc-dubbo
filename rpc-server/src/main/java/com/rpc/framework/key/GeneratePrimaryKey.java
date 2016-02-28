@@ -73,7 +73,7 @@ public class GeneratePrimaryKey {
         for (Entry<String, String> entry : propertyMap.entrySet()) {
             tableName = entry.getKey();
             if (!tableMap.containsKey(tableName)) {
-                throw new Exception("表名在数据库中不存在或key.properties配置文件中没有做相应的配置:" + tableName);
+                throw new Exception("## 表名在数据库中不存在或key.properties配置文件中没有做相应的配置:" + tableName);
             }
             key = tableMap.get(tableName);
             key.setMachineCode(machineCode);

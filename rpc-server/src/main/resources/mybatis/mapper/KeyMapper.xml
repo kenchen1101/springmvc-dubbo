@@ -4,9 +4,10 @@
 
 	<select id="getTableValues" resultType="com.rpc.framework.key.model.Key">
 		<foreach collection="list" item="item" separator="union all">
-			SELECT max(${item.id}) id, '${item.tableName}' tableName
-			FROM ${item.tableName}
-			<if test="item.machineCode != null and item.machineCode != ''"> WHERE ${item.id} like '${item.machineCode}%'</if>
+			SELECT max(${item.id}) id, '${item.tableName}' tableName FROM ${item.tableName}
+			 <where>
+			 	<if test="item.machineCode != null and item.machineCode != ''"> ${item.id} like '${item.machineCode}%'</if>
+			 </where>
 		</foreach>
 	</select>
 

@@ -75,25 +75,30 @@ public class MongoDbAppender<E extends ILoggingEvent> extends AppenderBase<E> {
 
         boolean noErrors = true;
         if (StringUtils.isBlank(host) || StringUtils.isBlank(port)) {
+            System.err.println("No MongoServerAddress values provided");
             addStatus(new ErrorStatus("No MongoServerAddress values provided", this));
             noErrors = false;
         }
         if (database == null) {
             addStatus(new ErrorStatus("No database name provided", this));
+            System.out.println("No database name provided");
             noErrors = false;
         }
-        if (collection == null)
+        if (collection == null) {
+            System.out.println("No collection name provided");
             addStatus(new ErrorStatus("No collection name provided", this));
-
+        }
         if (noErrors) {
             List<ServerAddress> addresses = new ArrayList<ServerAddress>();
             try {
                 addresses.add(new ServerAddress(host, Integer.parseInt(port)));
             } catch (Exception e) {
                 noErrors = false;
-                addStatus(new ErrorStatus("Error connecting to server. " + "address=" + host + ", port=" + port, this, e));
+                System.out.println("Error connecting to server.");
+                addStatus(new ErrorStatus("Error connecting to server." + "address=" + host + ", port=" + port, this, e));
             }
             if (noErrors) {
+                System.out.println("host=" + host + " 、port=" + port + " 、database=" + database + " 、collection=" + collection);
                 dbCol = new MongoClient(host, Integer.parseInt(port)).getDatabase(database).getCollection(collection, BasicDBObject.class);
                 super.start();
             }

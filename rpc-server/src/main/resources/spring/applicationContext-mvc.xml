@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="com.rpc.*">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<mvc:annotation-driven />
+
+	<!-- JSP视图解析 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html;charset=UTF8" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="common/error" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">common/fileuploaderror</prop>
+				<prop key="com.rpc.common.exception.BusinessException">common/error</prop>
+				<prop key="java.lang.Exception">common/error</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 静态资源映射 -->
+	<mvc:resources location="/static/" mapping="/static/**" />
+
+	<mvc:view-controller path="/" view-name="redirect:/index" />
+
+	<beans profile="development">
+		<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<property name="basenames" value="classpath:/config/dev_properties/messages" />
+			<property name="cacheSeconds" value="10" />
+			<property name="fileEncodings" value="UTF-8" />
+			<property name="defaultEncoding" value="UTF-8" />
+		</bean>
+	</beans>
+
+	<beans profile="production">
+		<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<property name="basenames" value="classpath:/config/properties/messages" />
+			<property name="cacheSeconds" value="10" />
+			<property name="fileEncodings" value="UTF-8" />
+			<property name="defaultEncoding" value="UTF-8" />
+		</bean>
+	</beans>
+
+</beans>    
