@@ -9,6 +9,6 @@
    	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<!-- 权限模块的service -->
-	<dubbo:reference id="authService" interface="com.rpc.auth.service.AuthService" />
+	<dubbo:reference id="authService" interface="com.rpc.auth.service.AuthService" protocol="dubbo"/>
 
 </beans>

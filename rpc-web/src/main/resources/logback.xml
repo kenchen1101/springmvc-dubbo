@@ -66,13 +66,13 @@
 		<appender-ref ref="stdout" />
 
 		<!-- 输出到mongo -->
-		<appender-ref ref="mongo" />
+		<!-- <appender-ref ref="mongo" /> -->
 
 		<!-- 当前级别可输出的日志全部写入一个文件 -->
-		<!-- <appender-ref ref="file" /> -->
+		<appender-ref ref="file" />
 
 		<!-- error级别日志单独写入一个文件 -->
-		<!-- <appender-ref ref="error" /> -->
+		<appender-ref ref="error" />
 	</root>
 
 </configuration>

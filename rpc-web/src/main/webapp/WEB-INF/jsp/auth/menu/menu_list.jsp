@@ -38,8 +38,8 @@
 					<c:forEach var="m" items="${pers }">
 						<tr>
 							<td>${m.menuName }</td>
-							<td>${m.loginName }</td>
-							<td>${m.userName }</td>
+							<%-- <td>${m.loginName }</td>
+							<td>${m.userName }</td> --%>
 							<td><fmt:formatDate value="${m.createTime }" pattern="yyyy-MM-dd HH:mm" /></td>
 							<td><a href="${ctx }/user/edit?userId=${u.id}">修改</a></td>
 						</tr>
